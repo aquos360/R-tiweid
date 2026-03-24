@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rütiweid – Hof mit Herz</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=Lato:wght@300;400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep: #243C30;
+    --green-mid: #3A5C47;
+    --green-light: #6A8C72;
+    --cream: #F6EDD9;
+    --cream-dark: #EBD9B8;
+    --stone: #C8A97A;
+    --gold: #B8874A;
+    --white: #FDFAF4;
+    --text-dark: #1E2D24;
+    --text-mid: #4A5E50;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 1.2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: all .4s ease;
+  }
+  nav.scrolled {
+    background: rgba(36,60,48,.93);
+    backdrop-filter: blur(12px);
+    padding: .8rem 4rem;
+    box-shadow: 0 2px 30px rgba(0,0,0,.2);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: .04em;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--stone); font-style: italic; }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    color: rgba(253,250,244,.75);
+    text-decoration: none;
+    font-size: .82rem;
+    font-weight: 400;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    transition: color .3s;
+  }
+  .nav-links a:hover { color: var(--stone); }
+
+  /* ─── HERO ─── */
+  .hero {
+    height: 100vh; min-height: 680px;
+    display: grid; place-items: center;
+    position: relative; overflow: hidden;
+    background: var(--green-deep);
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(160deg, rgba(26,46,34,.82) 0%, rgba(36,60,48,.75) 50%, rgba(28,48,40,.85) 100%),
+      url('Rütiweid.png') center center / cover no-repeat;
+  }
+  /* Decorative grain overlay */
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: .4; pointer-events: none;
+  }
+  .hero-deco {
+    position: absolute; right: -80px; top: 50%;
+    transform: translateY(-50%);
+    width: 580px; height: 580px;
+    border-radius: 50%;
+    border: 1px solid rgba(200,169,122,.12);
+    pointer-events: none;
+  }
+  .hero-deco::before {
+    content: '';
+    position: absolute; inset: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(200,169,122,.08);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 2rem;
+    opacity: 0; animation: heroFadeIn .9s .2s forwards ease-out;
+  }
+  @keyframes heroFadeIn {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow {
+    font-size: .72rem; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--stone); font-weight: 700;
+    margin-bottom: 1.4rem;
+    opacity: 0; animation: heroFadeIn .8s .4s forwards ease-out;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.2rem, 8vw, 6.5rem);
+    line-height: 1.06;
+    color: var(--white);
+    font-weight: 800;
+    letter-spacing: -.01em;
+    opacity: 0; animation: heroFadeIn .8s .55s forwards ease-out;
+  }
+  .hero-title em {
+    display: block;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--stone);
+  }
+  .hero-sub {
+    margin-top: 1.8rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    color: rgba(253,250,244,.65);
+    letter-spacing: .04em;
+    font-weight: 300;
+    opacity: 0; animation: heroFadeIn .8s .7s forwards ease-out;
+  }
+  .hero-ctas {
+    margin-top: 2.8rem; display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;
+    opacity: 0; animation: heroFadeIn .8s .85s forwards ease-out;
+  }
+  .btn-primary {
+    background: var(--stone);
+    color: var(--white);
+    padding: .9rem 2.4rem;
+    border: none; border-radius: 2px;
+    font-size: .82rem; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+    cursor: pointer; text-decoration: none;
+    transition: background .3s, transform .2s;
+  }
+  .btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    padding: .9rem 2.4rem;
+    border: 1px solid rgba(253,250,244,.3);
+    border-radius: 2px;
+    font-size: .82rem; font-weight: 400;
+    letter-spacing: .14em; text-transform: uppercase;
+    cursor: pointer; text-decoration: none;
+    transition: border-color .3s, color .3s, transform .2s;
+  }
+  .btn-outline:hover { border-color: var(--stone); color: var(--stone); transform: translateY(-2px); }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: .6rem;
+    opacity: 0; animation: heroFadeIn .8s 1.2s forwards ease-out;
+    color: rgba(253,250,244,.4); font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, rgba(200,169,122,.6), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+  @keyframes scrollPulse {
+    0%,100% { opacity: .4; }
+    50% { opacity: 1; }
+  }
+
+  /* ─── SECTIONS SHARED ─── */
+  section { position: relative; }
+  .section-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 7rem 2rem;
+  }
+  .label {
+    font-size: .68rem; letter-spacing: .3em; text-transform: uppercase;
+    font-weight: 700; color: var(--stone);
+    margin-bottom: .9rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 1.4rem;
+  }
+  .section-title em { font-style: italic; font-weight: 400; }
+  .section-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; line-height: 1.85;
+    color: var(--text-mid);
+    max-width: 560px;
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    display: flex; align-items: center; gap: 1rem;
+    margin: 1.6rem 0;
+  }
+  .divider-line { flex: 1; height: 1px; background: var(--cream-dark); }
+  .divider-leaf { color: var(--stone); font-size: 1rem; }
+
+  /* ─── ABOUT ─── */
+  .about { background: var(--white); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .about-image-wrap {
+    position: relative;
+  }
+  .about-img-main {
+    width: 100%; aspect-ratio: 4/5;
+    background: linear-gradient(135deg, #3A5C47 0%, #243C30 100%);
+    border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .img-placeholder {
+    text-align: center; color: rgba(253,250,244,.35);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; letter-spacing: .1em;
+    padding: 2rem;
+    pointer-events: none;
+  }
+  .img-placeholder .icon { font-size: 3rem; display: block; margin-bottom: .8rem; }
+  .about-img-accent {
+    position: absolute;
+    bottom: -2rem; right: -2.5rem;
+    width: 55%; aspect-ratio: 1;
+    background: linear-gradient(135deg, #C8A97A 0%, #B8874A 100%);
+    border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    border: 6px solid var(--white);
+  }
+  .about-stats {
+    margin-top: 3rem;
+    display: flex; gap: 2.5rem;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; font-weight: 800;
+    color: var(--green-deep);
+  }
+  .stat-label {
+    font-size: .72rem; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--text-mid);
+    margin-top: .2rem;
+  }
+
+  /* ─── MILCH ─── */
+  .milch {
+    background: var(--green-deep);
+    overflow: hidden;
+  }
+  .milch .section-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+  .milch .section-title { color: var(--cream); }
+  .milch .label { color: var(--stone); }
+  .milch .section-body { color: rgba(246,237,217,.7); }
+  .milch-features {
+    margin-top: 2.5rem;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+  .feature-card {
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(200,169,122,.15);
+    border-radius: 2px;
+    padding: 1.4rem;
+    transition: background .3s;
+  }
+  .feature-card:hover { background: rgba(200,169,122,.1); }
+  .feature-icon { font-size: 1.6rem; margin-bottom: .7rem; }
+  .feature-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 600;
+    color: var(--cream); margin-bottom: .4rem;
+  }
+  .feature-text { font-size: .85rem; color: rgba(246,237,217,.55); line-height: 1.6; }
+  .milch-visual {
+    position: relative;
+    height: 520px;
+  }
+  .milch-card-big {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 4rem;
+    background: linear-gradient(160deg, #3A5C47, #2C4A3E);
+    border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(200,169,122,.15);
+  }
+  .milch-card-small {
+    position: absolute; bottom: 0; right: 0;
+    width: 60%;
+    height: 45%;
+    background: var(--stone);
+    border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    border: 5px solid var(--green-deep);
+  }
+
+  /* ─── ARABER ─── */
+  .araber { background: var(--cream); }
+  .araber-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+  .araber-visual { position: relative; height: 540px; }
+  .araber-main {
+    position: absolute; inset: 0; bottom: 3rem;
+    background: linear-gradient(145deg, #5C7A62, #3A5C47);
+    border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .araber-badge {
+    position: absolute; bottom: 0; left: 2rem;
+    background: var(--green-deep);
+    color: var(--cream);
+    padding: 1.4rem 2rem;
+    border-radius: 2px;
+  }
+  .araber-badge-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 600;
+    color: var(--stone);
+  }
+  .araber-badge-sub {
+    font-size: .72rem; letter-spacing: .2em;
+    text-transform: uppercase; margin-top: .3rem;
+    color: rgba(246,237,217,.6);
+  }
+  .breed-tags {
+    display: flex; flex-wrap: wrap; gap: .7rem;
+    margin-top: 1.8rem;
+  }
+  .tag {
+    background: var(--white);
+    border: 1px solid var(--cream-dark);
+    padding: .45rem 1.1rem;
+    border-radius: 20px;
+    font-size: .78rem; color: var(--text-mid);
+    letter-spacing: .06em;
+    transition: all .3s;
+  }
+  .tag:hover { background: var(--green-deep); color: var(--cream); border-color: var(--green-deep); }
+
+  /* ─── THERAPIE ─── */
+  .therapie { background: var(--white); }
+  .therapie-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 5rem; align-items: start;
+  }
+  .therapie-points {
+    margin-top: 2.2rem;
+    display: flex; flex-direction: column; gap: 1.2rem;
+  }
+  .therapie-point {
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    padding: 1.4rem;
+    background: var(--cream);
+    border-left: 3px solid var(--stone);
+    border-radius: 0 2px 2px 0;
+    transition: transform .3s;
+  }
+  .therapie-point:hover { transform: translateX(4px); }
+  .point-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .point-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; font-weight: 600;
+    color: var(--text-dark); margin-bottom: .3rem;
+  }
+  .point-text { font-size: .88rem; color: var(--text-mid); line-height: 1.6; }
+  .therapie-visual {
+    position: relative; height: 500px;
+    display: flex; flex-direction: column; gap: 1.2rem;
+  }
+  .therapie-card-top {
+    flex: 1.4;
+    background: linear-gradient(135deg, #6A8C72, #3A5C47);
+    border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .therapie-card-bot {
+    flex: 1;
+    background: var(--cream-dark);
+    border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .therapie-quote {
+    padding: 2rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem; font-style: italic;
+    color: var(--text-dark);
+    line-height: 1.6;
+    position: relative;
+  }
+  .therapie-quote::before {
+    content: '"';
+    font-size: 5rem;
+    color: var(--stone);
+    position: absolute;
+    top: -.5rem; left: 1rem;
+    line-height: 1;
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* ─── GALERIE ─── */
+  .galerie { background: var(--green-deep); }
+  .galerie .section-title { color: var(--cream); }
+  .galerie .label { color: var(--stone); }
+  .galerie-intro { color: rgba(246,237,217,.65); margin-bottom: 3rem; max-width: 560px; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.8; }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(2, 240px);
+    gap: 12px;
+  }
+  .gallery-item {
+    border-radius: 2px; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .4s ease, filter .4s ease;
+    cursor: pointer;
+    position: relative;
+  }
+  .gallery-item:hover { transform: scale(1.02); filter: brightness(1.1); }
+  .gallery-item::after {
+    content: attr(data-label);
+    position: absolute; bottom: 1rem; left: 1rem;
+    font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(255,255,255,.7);
+    background: rgba(0,0,0,.35);
+    padding: .3rem .8rem; border-radius: 20px;
+    backdrop-filter: blur(4px);
+  }
+  .gi-1 { grid-column: span 5; background: linear-gradient(135deg, #4A7255 0%, #2C4A3E 100%); }
+  .gi-2 { grid-column: span 4; background: linear-gradient(135deg, #7A9E82 0%, #5C7A62 100%); }
+  .gi-3 { grid-column: span 3; background: linear-gradient(135deg, #B8874A 0%, #8A6030 100%); }
+  .gi-4 { grid-column: span 3; background: linear-gradient(135deg, #5C7A62 0%, #3A5C47 100%); }
+  .gi-5 { grid-column: span 6; background: linear-gradient(135deg, #C8A97A 0%, #A07840 100%); }
+  .gi-6 { grid-column: span 3; background: linear-gradient(135deg, #3A5C47 0%, #1A2E22 100%); }
+
+  /* ─── KONTAKT ─── */
+  .kontakt { background: var(--cream); }
+  .kontakt-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem; align-items: start;
+  }
+  .kontakt-info { margin-top: 2rem; }
+  .info-block { margin-bottom: 2.2rem; }
+  .info-icon { font-size: 1.4rem; margin-bottom: .6rem; }
+  .info-label { font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); font-weight: 700; margin-bottom: .4rem; }
+  .info-text { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--text-mid); line-height: 1.7; }
+  .kontakt-form {
+    background: var(--white);
+    padding: 2.8rem;
+    border-radius: 2px;
+    box-shadow: 0 4px 40px rgba(36,60,48,.07);
+  }
+  .form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 600;
+    color: var(--text-dark); margin-bottom: 1.8rem;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label {
+    display: block; font-size: .72rem; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--text-mid);
+    font-weight: 700; margin-bottom: .5rem;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%; padding: .85rem 1.1rem;
+    border: 1px solid var(--cream-dark);
+    border-radius: 2px;
+    font-family: 'Lato', sans-serif; font-size: .9rem;
+    color: var(--text-dark); background: var(--white);
+    transition: border-color .3s;
+    outline: none;
+    -webkit-appearance: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--stone); }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .btn-submit {
+    width: 100%;
+    background: var(--green-deep);
+    color: var(--white);
+    padding: 1rem 2rem;
+    border: none; border-radius: 2px;
+    font-size: .8rem; font-weight: 700;
+    letter-spacing: .16em; text-transform: uppercase;
+    cursor: pointer; margin-top: .5rem;
+    transition: background .3s, transform .2s;
+  }
+  .btn-submit:hover { background: var(--green-mid); transform: translateY(-2px); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #141F18;
+    color: rgba(246,237,217,.5);
+    padding: 3rem 4rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1.5rem;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 600;
+    color: var(--cream);
+  }
+  .footer-logo span { color: var(--stone); font-style: italic; }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a {
+    color: rgba(246,237,217,.45);
+    font-size: .75rem; letter-spacing: .12em; text-transform: uppercase;
+    text-decoration: none; transition: color .3s;
+  }
+  .footer-links a:hover { color: var(--stone); }
+  .footer-copy { font-size: .75rem; letter-spacing: .06em; }
+
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: .1s; }
+  .reveal-delay-2 { transition-delay: .2s; }
+  .reveal-delay-3 { transition-delay: .35s; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    nav.scrolled { padding: .8rem 2rem; }
+    .nav-links { display: none; }
+    .about-grid, .milch .section-inner, .araber-grid,
+    .therapie-wrap, .kontakt-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-img-accent { display: none; }
+    .milch-visual, .araber-visual, .therapie-visual { height: 300px; }
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto;
+    }
+    .gi-1,.gi-2,.gi-3,.gi-4,.gi-5,.gi-6 { grid-column: span 1; height: 200px; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; text-align: center; padding: 2.5rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-logo" href="#">Rüti<span>weid</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">Der Hof</a></li>
+    <li><a href="#milch">Milch</a></li>
+    <li><a href="#araber">Araberzucht</a></li>
+    <li><a href="#therapie">Reittherapie</a></li>
+    <li><a href="#galerie">Galerie</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-deco"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Willkommen auf der</p>
+    <h1 class="hero-title">
+      Rütiweid
+      <em>Hof mit Herz</em>
+    </h1>
+    <p class="hero-sub">Milchwirtschaft · Arabische Pferde · Reittherapie</p>
+    <div class="hero-ctas">
+      <a href="#about" class="btn-primary">Den Hof entdecken</a>
+      <a href="#kontakt" class="btn-outline">Kontakt aufnehmen</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-image-wrap reveal">
+        <div class="about-img-main">
+          <img src="Rütiweid.png" alt="Rütiweid Hof von oben" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="about-img-accent">
+          <img src="Arab2.png" alt="Arabische Pferde" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <p class="label">Über uns</p>
+        <h2 class="section-title">Wo Tradition<br>auf <em>Leidenschaft</em> trifft</h2>
+        <div class="divider">
+          <div class="divider-line"></div>
+          <span class="divider-leaf">✦</span>
+          <div class="divider-line"></div>
+        </div>
+        <p class="section-body">
+          Auf der Rütiweid vereinen sich drei Leidenschaften zu einem lebendigen Ganzen: 
+          die Kraft der Natur, die edle Schönheit arabischer Pferde und die heilsame Verbindung 
+          zwischen Mensch und Tier. Unser Hof ist ein Ort der Ruhe, der Authentizität – 
+          und echter Herzlichkeit.
+        </p>
+        <div class="about-stats">
+          <div class="stat">
+            <div class="stat-num">2</div>
+            <div class="stat-label">Generationen</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">35+</div>
+            <div class="stat-label">Hektaren</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">6</div>
+            <div class="stat-label">Arabische Pferde</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MILCH -->
+<section class="milch" id="milch">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="label">Milchwirtschaft</p>
+      <h2 class="section-title">Frische aus der <em>Region</em></h2>
+      <p class="section-body">
+        Unsere Kühe grasen auf saftigen Wiesen des Schweizer Mittellandes. 
+        Die Milch, die sie geben, ist rein, natürlich und von unvergleichlicher Qualität. 
+        Kurzwege vom Stall bis zu Ihrem Tisch – so verstehen wir regionale Landwirtschaft.
+      </p>
+      <div class="milch-features">
+        <div class="feature-card reveal reveal-delay-1">
+          <div class="feature-icon">🌿</div>
+          <div class="feature-title">Natürliche Haltung</div>
+          <div class="feature-text">Weidehaltung und artgerechte Fütterung sind bei uns selbstverständlich.</div>
+        </div>
+        <div class="feature-card reveal reveal-delay-2">
+          <div class="feature-icon">🥛</div>
+          <div class="feature-title">Frische Milch</div>
+          <div class="feature-text">Direkt ab Hof – täglich frisch und ohne lange Transportwege.</div>
+        </div>
+        <div class="feature-card reveal reveal-delay-1">
+          <div class="feature-icon">🌾</div>
+          <div class="feature-title">Eigenes Futter</div>
+          <div class="feature-text">Grossteil des Futters stammt von unseren eigenen Feldern.</div>
+        </div>
+        <div class="feature-card reveal reveal-delay-2">
+          <div class="feature-icon">♻️</div>
+          <div class="feature-title">Nachhaltig</div>
+          <div class="feature-text">Ressourcenschonend wirtschaften für kommende Generationen.</div>
+        </div>
+      </div>
+    </div>
+    <div class="milch-visual reveal reveal-delay-3">
+      <div class="milch-card-big" style="overflow:hidden;">
+        <img src="milchkuehe-schori.jpg" alt="Kühe auf der Weide" style="width:100%;height:100%;object-fit:cover;opacity:.85;">
+      </div>
+      <div class="milch-card-small" style="overflow:hidden;">
+        <img src="milchkuehe-schori.jpg" alt="Milchkühe" style="width:100%;height:100%;object-fit:cover;object-position:center 60%;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARABER -->
+<section class="araber" id="araber">
+  <div class="section-inner">
+    <div class="araber-grid">
+      <div class="araber-visual reveal">
+        <div class="araber-main" style="overflow:hidden;">
+          <img src="Arab1.png" alt="Arabische Pferde mit Reiterin" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="araber-badge">
+          <div class="araber-badge-title">Vollblut Araber</div>
+          <div class="araber-badge-sub">Reinrassige Zucht seit Jahren</div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <p class="label">Araberzucht</p>
+        <h2 class="section-title">Das edelste<br><em>Pferd der Welt</em></h2>
+        <div class="divider">
+          <div class="divider-line"></div>
+          <span class="divider-leaf">✦</span>
+          <div class="divider-line"></div>
+        </div>
+        <p class="section-body">
+          Der Arabische Vollblüter ist eine der ältesten und reinsten Pferderassen der Welt. 
+          Auf dem Rütiweid züchten wir mit Leidenschaft und Sachverstand – für Charakter, 
+          Gesundheit und jenes besondere Feuer, das diese Pferde so unvergleichlich macht.
+        </p>
+        <div class="breed-tags">
+          <span class="tag">Zucht & Aufzucht</span>
+          <span class="tag">Jungpferde</span>
+          <span class="tag">Beritt</span>
+          <span class="tag">Deckhengste</span>
+          <span class="tag">Ankauf & Verkauf</span>
+          <span class="tag">Beratung</span>
+        </div>
+        <div style="margin-top: 2.2rem;">
+          <a href="#kontakt" class="btn-primary">Anfrage senden</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THERAPIE -->
+<section class="therapie" id="therapie">
+  <div class="section-inner">
+    <div class="therapie-wrap">
+      <div class="reveal">
+        <p class="label">Reittherapie</p>
+        <h2 class="section-title">Heilung durch<br><em>Pferdekraft</em></h2>
+        <div class="divider">
+          <div class="divider-line"></div>
+          <span class="divider-leaf">✦</span>
+          <div class="divider-line"></div>
+        </div>
+        <p class="section-body">
+          Das Pferd als Therapeut – sanft, geduldig und ehrlich. 
+          Unsere Reittherapie nutzt die einzigartige Verbindung zwischen Mensch und Pferd 
+          zur Förderung von Körper, Geist und Seele.
+        </p>
+        <div class="therapie-points">
+          <div class="therapie-point reveal reveal-delay-1">
+            <span class="point-icon">🧠</span>
+            <div>
+              <div class="point-title">Psychomotorische Therapie</div>
+              <div class="point-text">Koordination, Gleichgewicht und Körperwahrnehmung gezielt fördern.</div>
+            </div>
+          </div>
+          <div class="therapie-point reveal reveal-delay-2">
+            <span class="point-icon">💚</span>
+            <div>
+              <div class="point-title">Emotionale Stärkung</div>
+              <div class="point-text">Vertrauen aufbauen, Ängste überwinden – mit dem Pferd als ruhiger Begleiter.</div>
+            </div>
+          </div>
+          <div class="therapie-point reveal reveal-delay-3">
+            <span class="point-icon">👨‍👩‍👧</span>
+            <div>
+              <div class="point-title">Für alle Altersgruppen</div>
+              <div class="point-text">Kinder, Jugendliche und Erwachsene – individuell abgestimmte Einheiten.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="therapie-visual reveal reveal-delay-2">
+        <div class="therapie-card-top" style="overflow:hidden;">
+          <img src="Arab2.png" alt="Arabische Pferde" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="therapie-card-bot">
+          <div class="therapie-quote">
+            Das Pferd lügt nicht – und genau das macht es zum besten Therapeuten.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section class="galerie" id="galerie">
+  <div class="section-inner">
+    <p class="label reveal">Eindrücke</p>
+    <h2 class="section-title reveal reveal-delay-1">Ein Blick auf die <em>Rütiweid</em></h2>
+    <p class="galerie-intro reveal reveal-delay-2">
+      Bilder sagen mehr als Worte. Hier finden Sie Impressionen aus unserem Alltag – 
+      von der Weide bis zum Stall, von der Milchkammer bis zum Therapieplatz.
+    </p>
+    <div class="gallery-grid reveal reveal-delay-3">
+      <div class="gallery-item gi-1" data-label="Der Hof">
+        <img src="Rütiweid.png" alt="Rütiweid von oben" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="gallery-item gi-2" data-label="Araberzucht">
+        <img src="Arab1.png" alt="Arabische Pferde mit Reiterin" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="gallery-item gi-3" data-label="Milchwirtschaft">
+        <img src="milchkuehe-schori.jpg" alt="Milchkühe" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="gallery-item gi-4" data-label="Pferdezucht">
+        <img src="Arab2.png" alt="Arabische Pferde" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="gallery-item gi-5" data-label="Reittherapie">
+        <img src="Arab1.png" alt="Reiten" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;">
+      </div>
+      <div class="gallery-item gi-6" data-label="Weide">
+        <img src="milchkuehe-schori.jpg" alt="Kühe auf der Weide" style="width:100%;height:100%;object-fit:cover;object-position:right center;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section class="kontakt" id="kontakt">
+  <div class="section-inner">
+    <div class="kontakt-grid">
+      <div class="reveal">
+        <p class="label">Anfahrt & Kontakt</p>
+        <h2 class="section-title">Besuchen Sie<br><em>uns</em></h2>
+        <div class="kontakt-info">
+          <div class="info-block">
+            <div class="info-icon">📍</div>
+            <div class="info-label">Adresse</div>
+            <div class="info-text">Rütiweidstrasse 227<br>8722 Kaltbrunn<br>Schweiz</div>
+          </div>
+          <div class="info-block">
+            <div class="info-icon">📞</div>
+            <div class="info-label">Telefon</div>
+            <div class="info-text">+41 00 000 00 00</div>
+          </div>
+          <div class="info-block">
+            <div class="info-icon">✉️</div>
+            <div class="info-label">E-Mail</div>
+            <div class="info-text">info@rütiweid.ch</div>
+          </div>
+        </div>
+      </div>
+      <div class="kontakt-form reveal reveal-delay-2">
+        <div class="form-title">Nachricht senden</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Vorname</label>
+            <input type="text" placeholder="Max">
+          </div>
+          <div class="form-group">
+            <label>Nachname</label>
+            <input type="text" placeholder="Muster">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>E-Mail</label>
+          <input type="email" placeholder="max@beispiel.ch">
+        </div>
+        <div class="form-group">
+          <label>Ihr Anliegen</label>
+          <select>
+            <option value="">Bitte wählen…</option>
+            <option>Milch & Hofprodukte</option>
+            <option>Araberzucht & Pferde</option>
+            <option>Reittherapie</option>
+            <option>Allgemeine Anfrage</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Nachricht</label>
+          <textarea placeholder="Schreiben Sie uns…"></textarea>
+        </div>
+        <button class="btn-submit">Nachricht senden →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Rüti<span>weid</span></div>
+  <div class="footer-links">
+    <a href="#">Impressum</a>
+    <a href="#">Datenschutz</a>
+    <a href="#kontakt">Kontakt</a>
+  </div>
+  <div class="footer-copy">© 2025 Rütiweid · Alle Rechte vorbehalten</div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
