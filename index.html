@@ -3,8 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rüttiweid – Reittherapie mit Herz</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=Lato:wght@300;400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<title>Reittherapie mit Herz – auf der Rüttiweid</title>
+<style>
+/* ─── LOKALE FONTS (DSGVO-konform, kein Google) ─── */
+@font-face { font-family:'Playfair Display'; font-style:normal; font-weight:400; font-display:swap; src:url('fonts/playfair-display-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family:'Playfair Display'; font-style:italic; font-weight:400; font-display:swap; src:url('fonts/playfair-display-latin-400-italic.woff2') format('woff2'); }
+@font-face { font-family:'Playfair Display'; font-style:normal; font-weight:600; font-display:swap; src:url('fonts/playfair-display-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family:'Playfair Display'; font-style:italic; font-weight:600; font-display:swap; src:url('fonts/playfair-display-latin-600-italic.woff2') format('woff2'); }
+@font-face { font-family:'Playfair Display'; font-style:normal; font-weight:800; font-display:swap; src:url('fonts/playfair-display-latin-800-normal.woff2') format('woff2'); }
+@font-face { font-family:'Playfair Display'; font-style:italic; font-weight:800; font-display:swap; src:url('fonts/playfair-display-latin-800-italic.woff2') format('woff2'); }
+@font-face { font-family:'Lato'; font-style:normal; font-weight:300; font-display:swap; src:url('fonts/lato-latin-300-normal.woff2') format('woff2'); }
+@font-face { font-family:'Lato'; font-style:normal; font-weight:400; font-display:swap; src:url('fonts/lato-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family:'Lato'; font-style:normal; font-weight:700; font-display:swap; src:url('fonts/lato-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family:'Cormorant Garamond'; font-style:normal; font-weight:300; font-display:swap; src:url('fonts/cormorant-garamond-latin-300-normal.woff2') format('woff2'); }
+@font-face { font-family:'Cormorant Garamond'; font-style:italic; font-weight:300; font-display:swap; src:url('fonts/cormorant-garamond-latin-300-italic.woff2') format('woff2'); }
+@font-face { font-family:'Cormorant Garamond'; font-style:normal; font-weight:400; font-display:swap; src:url('fonts/cormorant-garamond-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family:'Cormorant Garamond'; font-style:italic; font-weight:400; font-display:swap; src:url('fonts/cormorant-garamond-latin-400-italic.woff2') format('woff2'); }
+</style>
 <style>
   :root {
     --green-deep: #243C30;
@@ -17,12 +32,11 @@
     --white: #FDFAF4;
     --text-dark: #1E2D24;
     --text-mid: #4A5E50;
+    --warm: #F0E4CC;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
-
   body {
     font-family: 'Lato', sans-serif;
     background: var(--white);
@@ -38,130 +52,146 @@
     transition: all .4s ease;
   }
   nav.scrolled {
-    background: rgba(36,60,48,.93);
-    backdrop-filter: blur(12px);
+    background: rgba(36,60,48,.95);
+    backdrop-filter: blur(14px);
     padding: .8rem 4rem;
     box-shadow: 0 2px 30px rgba(0,0,0,.2);
   }
   .nav-logo {
     font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--white);
-    letter-spacing: .04em;
-    text-decoration: none;
+    font-size: 1.2rem; font-weight: 600;
+    color: var(--white); letter-spacing: .04em;
+    text-decoration: none; line-height: 1.2;
   }
-  .nav-logo span { color: var(--stone); font-style: italic; }
+  .nav-logo small {
+    display: block; font-size: .65rem;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--stone); font-family: 'Lato', sans-serif;
+    font-weight: 400; font-style: normal;
+  }
   .nav-links { display: flex; gap: 2.2rem; list-style: none; }
   .nav-links a {
     color: rgba(253,250,244,.75);
-    text-decoration: none;
-    font-size: .82rem;
-    font-weight: 400;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    transition: color .3s;
+    text-decoration: none; font-size: .8rem;
+    font-weight: 400; letter-spacing: .12em;
+    text-transform: uppercase; transition: color .3s;
   }
   .nav-links a:hover { color: var(--stone); }
 
+  /* ─── HAMBURGER ─── */
+  .nav-burger {
+    display: none; flex-direction: column;
+    gap: 5px; cursor: pointer; padding: 4px;
+  }
+  .nav-burger span {
+    display: block; width: 24px; height: 2px;
+    background: var(--white); border-radius: 2px;
+    transition: all .3s;
+  }
+  .nav-mobile {
+    display: none; position: fixed;
+    top: 0; left: 0; width: 100%; height: 100vh;
+    background: var(--green-deep);
+    z-index: 99; flex-direction: column;
+    align-items: center; justify-content: center; gap: 2.5rem;
+  }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; color: var(--cream);
+    text-decoration: none; font-weight: 400;
+    transition: color .3s;
+  }
+  .nav-mobile a:hover { color: var(--stone); }
+  .nav-mobile-close {
+    position: absolute; top: 1.5rem; right: 2rem;
+    font-size: 2rem; color: var(--cream);
+    cursor: pointer; background: none; border: none;
+  }
+
   /* ─── HERO ─── */
   .hero {
-    height: 100vh; min-height: 680px;
+    height: 100vh; min-height: 700px;
     display: grid; place-items: center;
     position: relative; overflow: hidden;
-    background: var(--green-deep);
   }
   .hero-bg {
     position: absolute; inset: 0;
     background:
-      linear-gradient(160deg, rgba(26,46,34,.82) 0%, rgba(36,60,48,.75) 50%, rgba(28,48,40,.85) 100%),
-      url('Rütiweid.png') center center / cover no-repeat;
+      linear-gradient(160deg, rgba(20,38,28,.78) 0%, rgba(36,60,48,.62) 55%, rgba(28,48,40,.75) 100%),
+      url('Reittherapie_1.jpeg') center 40% / cover no-repeat;
   }
-  /* Decorative grain overlay */
   .hero-bg::after {
     content: '';
     position: absolute; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-    opacity: .4; pointer-events: none;
-  }
-  .hero-deco {
-    position: absolute; right: -80px; top: 50%;
-    transform: translateY(-50%);
-    width: 580px; height: 580px;
-    border-radius: 50%;
-    border: 1px solid rgba(200,169,122,.12);
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(200,169,122,.08) 0%, transparent 70%);
     pointer-events: none;
-  }
-  .hero-deco::before {
-    content: '';
-    position: absolute; inset: 40px;
-    border-radius: 50%;
-    border: 1px solid rgba(200,169,122,.08);
   }
   .hero-content {
     position: relative; z-index: 2;
-    text-align: center;
-    padding: 2rem;
-    opacity: 0; animation: heroFadeIn .9s .2s forwards ease-out;
+    text-align: center; padding: 2rem;
+    max-width: 860px;
+    opacity: 0; animation: fadeUp .9s .2s forwards ease-out;
   }
-  @keyframes heroFadeIn {
-    from { opacity: 0; transform: translateY(22px); }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
   }
   .hero-eyebrow {
-    font-size: .72rem; letter-spacing: .3em; text-transform: uppercase;
-    color: var(--stone); font-weight: 700;
-    margin-bottom: 1.4rem;
-    opacity: 0; animation: heroFadeIn .8s .4s forwards ease-out;
+    font-size: .7rem; letter-spacing: .35em; text-transform: uppercase;
+    color: var(--stone); font-weight: 700; margin-bottom: 1.6rem;
+    opacity: 0; animation: fadeUp .8s .45s forwards ease-out;
   }
   .hero-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(3.2rem, 8vw, 6.5rem);
-    line-height: 1.06;
-    color: var(--white);
-    font-weight: 800;
-    letter-spacing: -.01em;
-    opacity: 0; animation: heroFadeIn .8s .55s forwards ease-out;
+    font-size: clamp(3rem, 8vw, 6.2rem);
+    line-height: 1.06; color: var(--white);
+    font-weight: 800; letter-spacing: -.01em;
+    opacity: 0; animation: fadeUp .8s .6s forwards ease-out;
   }
   .hero-title em {
-    display: block;
-    font-style: italic;
-    font-weight: 400;
-    color: var(--stone);
+    display: block; font-style: italic;
+    font-weight: 400; color: var(--stone);
   }
-  .hero-sub {
-    margin-top: 1.8rem;
+  .hero-location {
+    margin-top: 1.2rem;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.25rem;
-    color: rgba(253,250,244,.65);
-    letter-spacing: .04em;
-    font-weight: 300;
-    opacity: 0; animation: heroFadeIn .8s .7s forwards ease-out;
+    font-size: 1.1rem; color: rgba(253,250,244,.55);
+    letter-spacing: .12em; font-weight: 300;
+    font-style: italic;
+    opacity: 0; animation: fadeUp .8s .75s forwards ease-out;
+  }
+  .hero-tags {
+    margin-top: 2rem;
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp .8s .85s forwards ease-out;
+  }
+  .hero-tag {
+    background: rgba(200,169,122,.15);
+    border: 1px solid rgba(200,169,122,.35);
+    color: rgba(253,250,244,.8);
+    padding: .4rem 1.2rem; border-radius: 20px;
+    font-size: .78rem; letter-spacing: .1em;
   }
   .hero-ctas {
-    margin-top: 2.8rem; display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;
-    opacity: 0; animation: heroFadeIn .8s .85s forwards ease-out;
+    margin-top: 2.8rem;
+    display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp .8s 1s forwards ease-out;
   }
   .btn-primary {
-    background: var(--stone);
-    color: var(--white);
-    padding: .9rem 2.4rem;
-    border: none; border-radius: 2px;
-    font-size: .82rem; font-weight: 700;
-    letter-spacing: .14em; text-transform: uppercase;
-    cursor: pointer; text-decoration: none;
+    background: var(--stone); color: var(--white);
+    padding: .95rem 2.4rem; border: none; border-radius: 2px;
+    font-size: .82rem; font-weight: 700; letter-spacing: .14em;
+    text-transform: uppercase; cursor: pointer; text-decoration: none;
     transition: background .3s, transform .2s;
   }
   .btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
   .btn-outline {
-    background: transparent;
-    color: var(--white);
-    padding: .9rem 2.4rem;
-    border: 1px solid rgba(253,250,244,.3);
-    border-radius: 2px;
-    font-size: .82rem; font-weight: 400;
-    letter-spacing: .14em; text-transform: uppercase;
-    cursor: pointer; text-decoration: none;
+    background: transparent; color: var(--white);
+    padding: .95rem 2.4rem;
+    border: 1px solid rgba(253,250,244,.3); border-radius: 2px;
+    font-size: .82rem; font-weight: 400; letter-spacing: .14em;
+    text-transform: uppercase; cursor: pointer; text-decoration: none;
     transition: border-color .3s, color .3s, transform .2s;
   }
   .btn-outline:hover { border-color: var(--stone); color: var(--stone); transform: translateY(-2px); }
@@ -169,317 +199,254 @@
     position: absolute; bottom: 2.5rem; left: 50%;
     transform: translateX(-50%);
     display: flex; flex-direction: column; align-items: center; gap: .6rem;
-    opacity: 0; animation: heroFadeIn .8s 1.2s forwards ease-out;
-    color: rgba(253,250,244,.4); font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+    opacity: 0; animation: fadeUp .8s 1.3s forwards ease-out;
+    color: rgba(253,250,244,.35); font-size: .62rem;
+    letter-spacing: .22em; text-transform: uppercase;
   }
   .scroll-line {
-    width: 1px; height: 50px;
-    background: linear-gradient(to bottom, rgba(200,169,122,.6), transparent);
-    animation: scrollPulse 2s infinite;
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, rgba(200,169,122,.7), transparent);
+    animation: pulse 2s infinite;
   }
-  @keyframes scrollPulse {
-    0%,100% { opacity: .4; }
-    50% { opacity: 1; }
-  }
+  @keyframes pulse { 0%,100%{opacity:.4} 50%{opacity:1} }
 
-  /* ─── SECTIONS SHARED ─── */
+  /* ─── SHARED ─── */
   section { position: relative; }
-  .section-inner {
-    max-width: 1160px;
-    margin: 0 auto;
-    padding: 7rem 2rem;
+  .section-inner { max-width: 1160px; margin: 0 auto; padding: 7rem 2rem; }
+  .s-label {
+    font-size: .68rem; letter-spacing: .32em; text-transform: uppercase;
+    font-weight: 700; color: var(--stone); margin-bottom: .9rem;
   }
-  .label {
-    font-size: .68rem; letter-spacing: .3em; text-transform: uppercase;
-    font-weight: 700; color: var(--stone);
-    margin-bottom: .9rem;
-  }
-  .section-title {
+  .s-title {
     font-family: 'Playfair Display', serif;
     font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1.15;
-    font-weight: 800;
-    color: var(--text-dark);
-    margin-bottom: 1.4rem;
+    line-height: 1.15; font-weight: 800;
+    color: var(--text-dark); margin-bottom: 1.4rem;
   }
-  .section-title em { font-style: italic; font-weight: 400; }
-  .section-body {
+  .s-title em { font-style: italic; font-weight: 400; }
+  .s-body {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.2rem; line-height: 1.85;
-    color: var(--text-mid);
-    max-width: 560px;
+    color: var(--text-mid); max-width: 560px;
   }
-
-  /* ─── DIVIDER ─── */
   .divider {
-    display: flex; align-items: center; gap: 1rem;
-    margin: 1.6rem 0;
+    display: flex; align-items: center; gap: 1rem; margin: 1.6rem 0;
   }
   .divider-line { flex: 1; height: 1px; background: var(--cream-dark); }
-  .divider-leaf { color: var(--stone); font-size: 1rem; }
+  .divider-gem { color: var(--stone); font-size: .9rem; }
 
-  /* ─── ABOUT ─── */
-  .about { background: var(--white); }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
-  }
-  .about-image-wrap {
-    position: relative;
-  }
-  .about-img-main {
-    width: 100%; aspect-ratio: 4/5;
-    background: linear-gradient(135deg, #3A5C47 0%, #243C30 100%);
-    border-radius: 2px;
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-  }
-  .img-placeholder {
-    text-align: center; color: rgba(253,250,244,.35);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem; letter-spacing: .1em;
-    padding: 2rem;
-    pointer-events: none;
-  }
-  .img-placeholder .icon { font-size: 3rem; display: block; margin-bottom: .8rem; }
-  .about-img-accent {
-    position: absolute;
-    bottom: -2rem; right: -2.5rem;
-    width: 55%; aspect-ratio: 1;
-    background: linear-gradient(135deg, #C8A97A 0%, #B8874A 100%);
-    border-radius: 2px;
-    display: flex; align-items: center; justify-content: center;
-    border: 6px solid var(--white);
-  }
-  .about-stats {
-    margin-top: 3rem;
-    display: flex; gap: 2.5rem;
-  }
-  .stat { text-align: center; }
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem; font-weight: 800;
-    color: var(--green-deep);
-  }
-  .stat-label {
-    font-size: .72rem; letter-spacing: .15em;
-    text-transform: uppercase; color: var(--text-mid);
-    margin-top: .2rem;
-  }
-
-  /* ─── MILCH ─── */
-  .milch {
-    background: var(--green-deep);
-    overflow: hidden;
-  }
-  .milch .section-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem; align-items: center;
-  }
-  .milch .section-title { color: var(--cream); }
-  .milch .label { color: var(--stone); }
-  .milch .section-body { color: rgba(246,237,217,.7); }
-  .milch-features {
-    margin-top: 2.5rem;
+  /* ─── THERAPIE INTRO ─── */
+  .therapie-intro { background: var(--white); }
+  .therapie-intro-grid {
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 1.2rem;
+    gap: 6rem; align-items: center;
   }
-  .feature-card {
+  .therapie-img-wrap { position: relative; }
+  .therapie-img-main {
+    width: 100%; aspect-ratio: 4/5;
+    border-radius: 2px; overflow: hidden;
+  }
+  .therapie-img-main img { width:100%; height:100%; object-fit:cover; }
+  .therapie-img-badge {
+    position: absolute; bottom: -1.5rem; right: -2rem;
+    background: var(--green-deep);
+    padding: 1.6rem 2rem; border-radius: 2px;
+    border: 5px solid var(--white);
+    text-align: center;
+  }
+  .badge-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem; font-weight: 800; color: var(--stone);
+    line-height: 1;
+  }
+  .badge-label {
+    font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(246,237,217,.6); margin-top: .4rem;
+  }
+
+  /* ─── THERAPIE FORMS ─── */
+  .therapie-forms { background: var(--cream); }
+  .forms-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 2rem; margin-top: 3.5rem;
+  }
+  .form-card {
+    background: var(--white);
+    border-radius: 2px;
+    padding: 2.4rem;
+    border-top: 3px solid var(--stone);
+    box-shadow: 0 4px 30px rgba(36,60,48,.06);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .form-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(36,60,48,.1); }
+  .form-card-icon { font-size: 2.2rem; margin-bottom: 1.2rem; }
+  .form-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 600;
+    color: var(--text-dark); margin-bottom: .8rem;
+  }
+  .form-card-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; line-height: 1.8;
+    color: var(--text-mid); margin-bottom: 1.4rem;
+  }
+  .form-card-tags {
+    display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.4rem;
+  }
+  .form-tag {
+    background: var(--cream); border: 1px solid var(--cream-dark);
+    padding: .3rem .9rem; border-radius: 20px;
+    font-size: .75rem; color: var(--text-mid); letter-spacing: .06em;
+  }
+  .form-card-footer {
+    font-size: .8rem; color: var(--stone);
+    font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  /* ─── ZIELGRUPPEN ─── */
+  .zielgruppen { background: var(--green-deep); }
+  .zielgruppen .s-title { color: var(--cream); }
+  .zielgruppen .s-label { color: var(--stone); }
+  .zielgruppen .s-body { color: rgba(246,237,217,.7); }
+  .zg-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem; margin-top: 3.5rem;
+  }
+  .zg-card {
     background: rgba(255,255,255,.06);
     border: 1px solid rgba(200,169,122,.15);
-    border-radius: 2px;
-    padding: 1.4rem;
-    transition: background .3s;
+    border-radius: 2px; padding: 2rem 1.5rem;
+    text-align: center;
+    transition: background .3s, transform .3s;
   }
-  .feature-card:hover { background: rgba(200,169,122,.1); }
-  .feature-icon { font-size: 1.6rem; margin-bottom: .7rem; }
-  .feature-title {
+  .zg-card:hover { background: rgba(200,169,122,.12); transform: translateY(-4px); }
+  .zg-icon { font-size: 2.4rem; margin-bottom: 1rem; }
+  .zg-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1rem; font-weight: 600;
-    color: var(--cream); margin-bottom: .4rem;
+    font-size: 1.05rem; font-weight: 600;
+    color: var(--cream); margin-bottom: .6rem;
   }
-  .feature-text { font-size: .85rem; color: rgba(246,237,217,.55); line-height: 1.6; }
-  .milch-visual {
-    position: relative;
-    height: 520px;
-  }
-  .milch-card-big {
-    position: absolute; top: 0; left: 0; right: 0; bottom: 4rem;
-    background: linear-gradient(160deg, #3A5C47, #2C4A3E);
-    border-radius: 2px;
-    display: flex; align-items: center; justify-content: center;
-    border: 1px solid rgba(200,169,122,.15);
-  }
-  .milch-card-small {
-    position: absolute; bottom: 0; right: 0;
-    width: 60%;
-    height: 45%;
-    background: var(--stone);
-    border-radius: 2px;
-    display: flex; align-items: center; justify-content: center;
-    border: 5px solid var(--green-deep);
-  }
+  .zg-text { font-size: .85rem; color: rgba(246,237,217,.55); line-height: 1.6; }
 
   /* ─── ARABER ─── */
-  .araber { background: var(--cream); }
+  .araber { background: var(--white); }
   .araber-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 1fr;
+    display: grid; grid-template-columns: 1.1fr 1fr;
     gap: 5rem; align-items: center;
   }
-  .araber-visual { position: relative; height: 540px; }
+  .araber-visual { position: relative; height: 520px; }
   .araber-main {
     position: absolute; inset: 0; bottom: 3rem;
-    background: linear-gradient(145deg, #5C7A62, #3A5C47);
-    border-radius: 2px;
-    display: flex; align-items: center; justify-content: center;
+    border-radius: 2px; overflow: hidden;
   }
+  .araber-main img { width:100%; height:100%; object-fit:cover; }
   .araber-badge {
     position: absolute; bottom: 0; left: 2rem;
-    background: var(--green-deep);
-    color: var(--cream);
-    padding: 1.4rem 2rem;
-    border-radius: 2px;
+    background: var(--green-deep); color: var(--cream);
+    padding: 1.4rem 2rem; border-radius: 2px;
   }
   .araber-badge-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1.6rem; font-weight: 600;
-    color: var(--stone);
+    font-size: 1.5rem; font-weight: 600; color: var(--stone);
   }
   .araber-badge-sub {
-    font-size: .72rem; letter-spacing: .2em;
+    font-size: .7rem; letter-spacing: .2em;
     text-transform: uppercase; margin-top: .3rem;
-    color: rgba(246,237,217,.6);
+    color: rgba(246,237,217,.55);
   }
-  .breed-tags {
-    display: flex; flex-wrap: wrap; gap: .7rem;
-    margin-top: 1.8rem;
-  }
-  .tag {
-    background: var(--white);
-    border: 1px solid var(--cream-dark);
-    padding: .45rem 1.1rem;
-    border-radius: 20px;
+  .breed-tags { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.8rem; }
+  .btag {
+    background: var(--cream); border: 1px solid var(--cream-dark);
+    padding: .45rem 1.1rem; border-radius: 20px;
     font-size: .78rem; color: var(--text-mid);
-    letter-spacing: .06em;
-    transition: all .3s;
+    letter-spacing: .06em; transition: all .3s;
   }
-  .tag:hover { background: var(--green-deep); color: var(--cream); border-color: var(--green-deep); }
-
-  /* ─── THERAPIE ─── */
-  .therapie { background: var(--white); }
-  .therapie-wrap {
-    display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    gap: 5rem; align-items: start;
-  }
-  .therapie-points {
-    margin-top: 2.2rem;
-    display: flex; flex-direction: column; gap: 1.2rem;
-  }
-  .therapie-point {
-    display: flex; gap: 1.2rem; align-items: flex-start;
-    padding: 1.4rem;
-    background: var(--cream);
-    border-left: 3px solid var(--stone);
-    border-radius: 0 2px 2px 0;
-    transition: transform .3s;
-  }
-  .therapie-point:hover { transform: translateX(4px); }
-  .point-icon { font-size: 1.5rem; flex-shrink: 0; }
-  .point-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem; font-weight: 600;
-    color: var(--text-dark); margin-bottom: .3rem;
-  }
-  .point-text { font-size: .88rem; color: var(--text-mid); line-height: 1.6; }
-  .therapie-visual {
-    position: relative; height: 500px;
-    display: flex; flex-direction: column; gap: 1.2rem;
-  }
-  .therapie-card-top {
-    flex: 1.4;
-    background: linear-gradient(135deg, #6A8C72, #3A5C47);
-    border-radius: 2px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .therapie-card-bot {
-    flex: 1;
-    background: var(--cream-dark);
-    border-radius: 2px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .therapie-quote {
-    padding: 2rem;
-    font-family: 'Playfair Display', serif;
-    font-size: 1.25rem; font-style: italic;
-    color: var(--text-dark);
-    line-height: 1.6;
-    position: relative;
-  }
-  .therapie-quote::before {
-    content: '"';
-    font-size: 5rem;
-    color: var(--stone);
-    position: absolute;
-    top: -.5rem; left: 1rem;
-    line-height: 1;
-    font-family: 'Playfair Display', serif;
-  }
+  .btag:hover { background: var(--green-deep); color: var(--cream); border-color: var(--green-deep); }
 
   /* ─── GALERIE ─── */
   .galerie { background: var(--green-deep); }
-  .galerie .section-title { color: var(--cream); }
-  .galerie .label { color: var(--stone); }
-  .galerie-intro { color: rgba(246,237,217,.65); margin-bottom: 3rem; max-width: 560px; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.8; }
+  .galerie .s-title { color: var(--cream); }
+  .galerie .s-label { color: var(--stone); }
+  .galerie-intro {
+    color: rgba(246,237,217,.65); margin-bottom: 3rem;
+    max-width: 560px; font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; line-height: 1.8;
+  }
   .gallery-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(2, 240px);
-    gap: 12px;
+    gap: 10px;
   }
-  .gallery-item {
+  .gi {
     border-radius: 2px; overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform .4s ease, filter .4s ease;
-    cursor: pointer;
-    position: relative;
+    position: relative; cursor: pointer;
+    transition: transform .4s ease;
   }
-  .gallery-item:hover { transform: scale(1.02); filter: brightness(1.1); }
-  .gallery-item::after {
+  .gi:hover { transform: scale(1.02); }
+  .gi img { width:100%; height:100%; object-fit:cover; transition: filter .4s; }
+  .gi:hover img { filter: brightness(1.1); }
+  .gi::after {
     content: attr(data-label);
-    position: absolute; bottom: 1rem; left: 1rem;
-    font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
-    color: rgba(255,255,255,.7);
+    position: absolute; bottom: .9rem; left: .9rem;
+    font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(255,255,255,.8);
     background: rgba(0,0,0,.35);
-    padding: .3rem .8rem; border-radius: 20px;
+    padding: .25rem .75rem; border-radius: 20px;
     backdrop-filter: blur(4px);
   }
-  .gi-1 { grid-column: span 5; background: linear-gradient(135deg, #4A7255 0%, #2C4A3E 100%); }
-  .gi-2 { grid-column: span 4; background: linear-gradient(135deg, #7A9E82 0%, #5C7A62 100%); }
-  .gi-3 { grid-column: span 3; background: linear-gradient(135deg, #B8874A 0%, #8A6030 100%); }
-  .gi-4 { grid-column: span 3; background: linear-gradient(135deg, #5C7A62 0%, #3A5C47 100%); }
-  .gi-5 { grid-column: span 6; background: linear-gradient(135deg, #C8A97A 0%, #A07840 100%); }
-  .gi-6 { grid-column: span 3; background: linear-gradient(135deg, #3A5C47 0%, #1A2E22 100%); }
+  .gi-1 { grid-column: span 5; }
+  .gi-2 { grid-column: span 4; }
+  .gi-3 { grid-column: span 3; }
+  .gi-4 { grid-column: span 3; }
+  .gi-5 { grid-column: span 6; }
+  .gi-6 { grid-column: span 3; }
+
+  /* ─── HOF (Randnotiz) ─── */
+  .hof { background: var(--warm); }
+  .hof-inner {
+    max-width: 1160px; margin: 0 auto;
+    padding: 5rem 2rem;
+    display: grid; grid-template-columns: 1fr 2fr;
+    gap: 5rem; align-items: center;
+  }
+  .hof-img {
+    width: 100%; aspect-ratio: 3/2;
+    border-radius: 2px; overflow: hidden;
+  }
+  .hof-img img { width:100%; height:100%; object-fit:cover; }
+  .hof-content .s-body { max-width: 100%; }
+  .hof-facts {
+    display: flex; gap: 2.5rem; margin-top: 2rem; flex-wrap: wrap;
+  }
+  .hof-fact-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 800; color: var(--green-deep);
+  }
+  .hof-fact-label {
+    font-size: .7rem; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--text-mid);
+  }
 
   /* ─── KONTAKT ─── */
   .kontakt { background: var(--cream); }
   .kontakt-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
+    display: grid; grid-template-columns: 1fr 1.3fr;
     gap: 5rem; align-items: start;
   }
-  .kontakt-info { margin-top: 2rem; }
-  .info-block { margin-bottom: 2.2rem; }
-  .info-icon { font-size: 1.4rem; margin-bottom: .6rem; }
-  .info-label { font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); font-weight: 700; margin-bottom: .4rem; }
-  .info-text { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--text-mid); line-height: 1.7; }
+  .info-block { margin-bottom: 2rem; }
+  .info-icon { font-size: 1.3rem; margin-bottom: .5rem; }
+  .info-label {
+    font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--stone); font-weight: 700; margin-bottom: .3rem;
+  }
+  .info-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; color: var(--text-mid); line-height: 1.7;
+  }
   .kontakt-form {
-    background: var(--white);
-    padding: 2.8rem;
+    background: var(--white); padding: 2.8rem;
     border-radius: 2px;
     box-shadow: 0 4px 40px rgba(36,60,48,.07);
   }
@@ -489,124 +456,251 @@
     color: var(--text-dark); margin-bottom: 1.8rem;
   }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-  .form-group { margin-bottom: 1rem; }
-  .form-group label {
-    display: block; font-size: .72rem; letter-spacing: .14em;
+  .fgroup { margin-bottom: 1rem; }
+  .fgroup label {
+    display: block; font-size: .7rem; letter-spacing: .14em;
     text-transform: uppercase; color: var(--text-mid);
     font-weight: 700; margin-bottom: .5rem;
   }
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
+  .fgroup input, .fgroup select, .fgroup textarea {
     width: 100%; padding: .85rem 1.1rem;
-    border: 1px solid var(--cream-dark);
-    border-radius: 2px;
+    border: 1px solid var(--cream-dark); border-radius: 2px;
     font-family: 'Lato', sans-serif; font-size: .9rem;
     color: var(--text-dark); background: var(--white);
-    transition: border-color .3s;
-    outline: none;
+    transition: border-color .3s; outline: none;
     -webkit-appearance: none;
   }
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus { border-color: var(--stone); }
-  .form-group textarea { resize: vertical; min-height: 110px; }
+  .fgroup input:focus, .fgroup select:focus, .fgroup textarea:focus { border-color: var(--stone); }
+  .fgroup textarea { resize: vertical; min-height: 110px; }
   .btn-submit {
-    width: 100%;
-    background: var(--green-deep);
-    color: var(--white);
-    padding: 1rem 2rem;
-    border: none; border-radius: 2px;
-    font-size: .8rem; font-weight: 700;
-    letter-spacing: .16em; text-transform: uppercase;
-    cursor: pointer; margin-top: .5rem;
+    width: 100%; background: var(--green-deep); color: var(--white);
+    padding: 1rem 2rem; border: none; border-radius: 2px;
+    font-size: .8rem; font-weight: 700; letter-spacing: .16em;
+    text-transform: uppercase; cursor: pointer; margin-top: .5rem;
     transition: background .3s, transform .2s;
   }
   .btn-submit:hover { background: var(--green-mid); transform: translateY(-2px); }
 
   /* ─── FOOTER ─── */
   footer {
-    background: #141F18;
-    color: rgba(246,237,217,.5);
+    background: #0F1A13;
+    color: rgba(246,237,217,.45);
     padding: 3rem 4rem 2rem;
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 1.5rem;
+  }
+  .footer-inner {
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 1.5rem;
+    margin-bottom: 2rem;
   }
   .footer-logo {
     font-family: 'Playfair Display', serif;
-    font-size: 1.3rem; font-weight: 600;
-    color: var(--cream);
+    font-size: 1.2rem; font-weight: 600; color: var(--cream);
   }
-  .footer-logo span { color: var(--stone); font-style: italic; }
+  .footer-logo small {
+    display: block; font-size: .62rem; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--stone);
+    font-family: 'Lato', sans-serif; font-weight: 400;
+    margin-top: .2rem;
+  }
   .footer-links { display: flex; gap: 2rem; }
   .footer-links a {
-    color: rgba(246,237,217,.45);
-    font-size: .75rem; letter-spacing: .12em; text-transform: uppercase;
+    color: rgba(246,237,217,.4); font-size: .73rem;
+    letter-spacing: .12em; text-transform: uppercase;
     text-decoration: none; transition: color .3s;
   }
   .footer-links a:hover { color: var(--stone); }
-  .footer-copy { font-size: .75rem; letter-spacing: .06em; }
+  .footer-bottom {
+    border-top: 1px solid rgba(246,237,217,.08);
+    padding-top: 1.5rem; font-size: .72rem;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem;
+  }
+
+  /* ─── NAV LOGO MIT ICON ─── */
+  .nav-logo {
+    display: flex; align-items: center; gap: .65rem;
+    text-decoration: none; line-height: 1.2;
+  }
+  .nav-logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; font-weight: 600;
+    color: var(--white); letter-spacing: .03em;
+  }
+  .nav-logo-text small {
+    display: block; font-size: .6rem;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--stone); font-family: 'Lato', sans-serif;
+    font-weight: 400;
+  }
+
+  /* ─── ÜBER MICH ─── */
+  .ueber { background: var(--green-deep); }
+  .ueber-grid {
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    gap: 6rem; align-items: center;
+  }
+  .ueber-photo {
+    position: relative;
+  }
+  .ueber-photo-frame {
+    width: 100%; aspect-ratio: 3/4;
+    background: rgba(255,255,255,.07);
+    border: 2px dashed rgba(200,169,122,.3);
+    border-radius: 2px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 1rem;
+  }
+  .ueber-photo-hint {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; color: rgba(200,169,122,.5);
+    letter-spacing: .12em; text-align: center;
+    padding: 0 2rem;
+  }
+  .ueber-logo-wrap {
+    display: flex; justify-content: center;
+    margin-bottom: 2rem;
+  }
+  .ueber-text-placeholder {
+    background: rgba(255,255,255,.05);
+    border: 1px dashed rgba(200,169,122,.25);
+    border-radius: 2px; padding: 2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem; line-height: 1.9;
+    color: rgba(200,169,122,.4); font-style: italic;
+    letter-spacing: .04em;
+    margin-top: 1.8rem;
+  }
+  .ueber .s-title { color: var(--cream); }
+  .ueber .s-label { color: var(--stone); }
+  .ueber .divider-line { background: rgba(200,169,122,.2); }
 
   /* ─── SCROLL REVEAL ─── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity .7s ease, transform .7s ease;
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .rd1 { transition-delay: .1s; }
+  .rd2 { transition-delay: .22s; }
+  .rd3 { transition-delay: .36s; }
+  .rd4 { transition-delay: .5s; }
+
+  /* ─── PREISE ─── */
+  .preise { background: var(--white); }
+  .preise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .preise-cards { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.4rem; }
+  .preis-card {
+    background: var(--cream); border-radius: 2px; padding: 1.8rem 2rem;
+    border-left: 4px solid var(--stone);
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem;
+    transition: transform .3s;
   }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
+  .preis-card:hover { transform: translateX(4px); }
+  .preis-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 600; color: var(--text-dark); margin-bottom: .4rem;
   }
-  .reveal-delay-1 { transition-delay: .1s; }
-  .reveal-delay-2 { transition-delay: .2s; }
-  .reveal-delay-3 { transition-delay: .35s; }
+  .preis-card-desc { font-size: .87rem; color: var(--text-mid); line-height: 1.6; }
+  .preis-card-sub { font-size: .78rem; color: var(--text-mid); margin-top: .35rem; opacity: .75; }
+  .preis-right { text-align: right; flex-shrink: 0; }
+  .preis-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.55rem; font-weight: 800; color: var(--green-deep); white-space: nowrap;
+  }
+  .preis-unit { font-size: .68rem; color: var(--text-mid); letter-spacing: .08em; margin-top: .2rem; }
+  .preise-note {
+    margin-top: 2rem; padding: 1.3rem 1.6rem;
+    background: var(--cream-dark); border-radius: 2px;
+    font-size: .82rem; color: var(--text-mid); line-height: 1.75;
+    border-left: 3px solid var(--stone);
+  }
+  .preise-img { position: relative; height: 500px; }
+  .preise-img-main { width: 100%; height: 100%; border-radius: 2px; overflow: hidden; }
+  .preise-img-main img { width:100%; height:100%; object-fit:cover; }
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 900px) {
-    nav { padding: 1rem 2rem; }
-    nav.scrolled { padding: .8rem 2rem; }
+    nav { padding: 1rem 1.5rem; }
+    nav.scrolled { padding: .8rem 1.5rem; }
     .nav-links { display: none; }
-    .about-grid, .milch .section-inner, .araber-grid,
-    .therapie-wrap, .kontakt-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .about-img-accent { display: none; }
-    .milch-visual, .araber-visual, .therapie-visual { height: 300px; }
+    .nav-burger { display: flex; }
+    .therapie-intro-grid, .araber-grid,
+    .kontakt-grid, .ueber-grid, .preise-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .forms-grid { grid-template-columns: 1fr; }
+    .zg-grid { grid-template-columns: repeat(2,1fr); }
+    .hof-inner { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 2rem; }
+    .therapie-img-badge { display: none; }
     .gallery-grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2,1fr);
       grid-template-rows: auto;
     }
     .gi-1,.gi-2,.gi-3,.gi-4,.gi-5,.gi-6 { grid-column: span 1; height: 200px; }
     .form-row { grid-template-columns: 1fr; }
-    footer { flex-direction: column; text-align: center; padding: 2.5rem 2rem; }
+    footer { padding: 2.5rem 1.5rem; }
+    .footer-inner { flex-direction: column; text-align: center; }
+    .footer-bottom { flex-direction: column; text-align: center; }
   }
+  @media (max-width: 600px) {
+    .zg-grid { grid-template-columns: 1fr 1fr; }
+    .hero-title { font-size: clamp(2.4rem, 10vw, 4rem); }
+  }
+@font-face { font-family:'Barlow Condensed'; font-style:normal; font-weight:800; font-display:swap; src:url('fonts/barlow-condensed-latin-800-normal.woff2') format('woff2'); }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav id="mainNav">
-  <a class="nav-logo" href="#">Rütti<span>weid</span></a>
+  <a class="nav-logo" href="#">
+    <img src="Reittherapie_mit_Herz_Logo.png" alt="Logo Reittherapie mit Herz" style="width:44px;height:44px;object-fit:contain;flex-shrink:0;filter:brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(5deg);">
+    <span class="nav-logo-text">
+      Reittherapie mit Herz
+      <small>auf der Rüttiweid</small>
+    </span>
+  </a>
   <ul class="nav-links">
-    <li><a href="#about">Der Hof</a></li>
+    <li><a href="#ueber">Über mich</a></li>
+    <li><a href="#therapie">Therapie</a></li>
+    <li><a href="#formen">Angebote</a></li>
+    <li><a href="#preise">Preise</a></li>
     <li><a href="#araber">Araberzucht</a></li>
-    <li><a href="#therapie">Reittherapie</a></li>
     <li><a href="#galerie">Galerie</a></li>
+    <li><a href="#hof">Der Hof</a></li>
     <li><a href="#kontakt">Kontakt</a></li>
   </ul>
+  <div class="nav-burger" id="navBurger">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
+
+<!-- MOBILE NAV -->
+<div class="nav-mobile" id="navMobile">
+  <button class="nav-mobile-close" id="navClose">✕</button>
+  <a href="#ueber" class="nav-m-link">Über mich</a>
+  <a href="#therapie" class="nav-m-link">Therapie</a>
+  <a href="#formen" class="nav-m-link">Angebote</a>
+  <a href="#preise" class="nav-m-link">Preise</a>
+  <a href="#araber" class="nav-m-link">Araberzucht</a>
+  <a href="#galerie" class="nav-m-link">Galerie</a>
+  <a href="#hof" class="nav-m-link">Der Hof</a>
+  <a href="#kontakt" class="nav-m-link">Kontakt</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-deco"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">Willkommen bei der</p>
+    <p class="hero-eyebrow">Heilung durch Pferdekraft</p>
     <h1 class="hero-title">
-      Reittherapie mit Herz</em>
+      Reittherapie
+      <em>mit Herz</em>
     </h1>
-    <p class="hero-sub">Reittherapie · Arabische Pferde</p>
+    <p class="hero-location">auf der Rüttiweid · Kaltbrunn</p>
+    <div class="hero-tags">
+      <span class="hero-tag">Heilpädagogisches Reiten</span>
+      <span class="hero-tag">Reittherapie</span>
+      <span class="hero-tag">Arabische Pferde</span>
+    </div>
     <div class="hero-ctas">
-      <a href="#about" class="btn-primary">Den Hof entdecken</a>
-      <a href="#kontakt" class="btn-outline">Kontakt aufnehmen</a>
+      <a href="#formen" class="btn-primary">Angebote entdecken</a>
+      <a href="#kontakt" class="btn-outline">Erstgespräch anfragen</a>
     </div>
   </div>
   <div class="hero-scroll">
@@ -615,91 +709,226 @@
   </div>
 </section>
 
-<!-- ABOUT -->
-<section class="about" id="about">
+<!-- ÜBER MICH -->
+<section class="ueber" id="ueber">
   <div class="section-inner">
-    <div class="about-grid">
-      <div class="about-image-wrap reveal">
-        <div class="about-img-main">
-          <img src="Rütiweid.png" alt="Rütiweid Hof von oben" style="width:100%;height:100%;object-fit:cover;">
-        </div>
-        <div class="about-img-accent">
-          <img src="Arab2.png" alt="Arabische Pferde" style="width:100%;height:100%;object-fit:cover;">
+    <div class="ueber-grid">
+      <div class="ueber-photo reveal">
+        <div class="ueber-photo-frame" style="border:none; background:none;">
+          <img src="Azida_und_ich.png" alt="Franziska mit Azida" style="width:100%;height:100%;object-fit:cover;border-radius:2px;">
         </div>
       </div>
-      <div class="reveal reveal-delay-2">
-        <p class="label">Über uns</p>
-        <h2 class="section-title">Wo Tradition<br>auf <em>Leidenschaft</em> trifft</h2>
+      <div class="reveal rd2">
+        <div class="ueber-logo-wrap">
+          <img src="Reittherapie_mit_Herz_Logo.png" alt="Logo Reittherapie mit Herz" style="width:160px;height:160px;object-fit:contain;">
+        </div>
+        <p class="s-label">Über mich</p>
+        <h2 class="s-title">Franziska –<br><em>mit Herz dabei</em></h2>
         <div class="divider">
           <div class="divider-line"></div>
-          <span class="divider-leaf">✦</span>
+          <span class="divider-gem" style="color:var(--stone)">✦</span>
           <div class="divider-line"></div>
         </div>
-        <p class="section-body">
-          Auf der Rüttiweid vereinen sich drei Leidenschaften zu einem lebendigen Ganzen: 
-          die Kraft der Natur, die edle Schönheit arabischer Pferde und die heilsame Verbindung 
-          zwischen Mensch und Tier. Unser Hof ist ein Ort der Ruhe, der Authentizität – 
-          und echter Herzlichkeit.
+        <p class="s-body">
+          Ich bin auf dem Bauernhof mit vielen Tieren aufgewachsen. Die Liebe zu ihnen begleitet mich schon mein ganzes Leben. Mein grösster Kindheitstraum war ein eigenes Pony – leider blieb dieser Wunsch damals unerfüllt.
         </p>
-        <div class="about-stats">
-          <div class="stat">
-            <div class="stat-num">2</div>
-            <div class="stat-label">Generationen</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">35+</div>
-            <div class="stat-label">Hektaren</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">5</div>
-            <div class="stat-label">Arabische Pferde</div>
-          </div>
+        <p class="s-body" style="margin-top:1rem;">
+          Als ich mit 17 Jahren meinen heutigen Mann kennenlernte, änderte sich vieles. Er ist Landwirt und Zimmermann, und durch ihn rückte mein Traum vom eigenen Pferd plötzlich in greifbare Nähe. Gemeinsam entdeckten wir unsere Leidenschaft für die Pferdezucht und kauften unsere erste Zuchtstute – eine Freibergerstute mit ihrem Fohlen. Damit begann eine wunderbare Reise, die uns bis heute verbindet.
+        </p>
+        <p class="s-body" style="margin-top:1rem;">
+          Beruflich absolvierte ich die Ausbildung zur Handarbeits- und Hauswirtschaftslehrerin in Gossau. Diesem Beruf bin ich bis heute mit grosser Freude treu geblieben, mit Schwerpunkt auf der Oberstufe.
+        </p>
+        <p class="s-body" style="margin-top:1rem;">
+          Mit der Zeit wuchs der Wunsch, meine beiden Leidenschaften zu verbinden – deshalb absolvierte ich die Weiterbildung zur Reittherapeutin. Heute ist es meine Herzensaufgabe, die Verbindung zwischen Mensch, Tier und Natur erlebbar zu machen. Denn genau dort, wo Herz und Beruf zusammentreffen, entstehen die schönsten Begegnungen.
+        </p>
+        <div style="margin-top:2rem;">
+          <a href="#kontakt" class="btn-primary" style="background:var(--stone);">Kontakt aufnehmen</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- MILCH -->
-<section class="milch" id="milch">
+<!-- THERAPIE INTRO -->
+<section class="therapie-intro" id="therapie">
   <div class="section-inner">
-    <div class="reveal">
-      <p class="label">Milchwirtschaft</p>
-      <h2 class="section-title">Frische aus der <em>Region</em></h2>
-      <p class="section-body">
-        Unsere Kühe grasen auf saftigen Wiesen des Schweizer Mittellandes. 
-        Die Milch, die sie geben, ist rein, natürlich und von unvergleichlicher Qualität. 
-        Kurzwege vom Stall bis zu Ihrem Tisch – so verstehen wir regionale Landwirtschaft.
-      </p>
-      <div class="milch-features">
-        <div class="feature-card reveal reveal-delay-1">
-          <div class="feature-icon">🌿</div>
-          <div class="feature-title">Natürliche Haltung</div>
-          <div class="feature-text">Weidehaltung und artgerechte Fütterung sind bei uns selbstverständlich.</div>
+    <div class="therapie-intro-grid">
+      <div class="therapie-img-wrap reveal">
+        <div class="therapie-img-main">
+          <img src="Kind_mit_Fohlen.png" alt="Kind mit Fohlen auf der Rüttiweid">
         </div>
-        <div class="feature-card reveal reveal-delay-2">
-          <div class="feature-icon">🥛</div>
-          <div class="feature-title">Frische Milch</div>
-          <div class="feature-text">Direkt ab Hof – täglich frisch und ohne lange Transportwege.</div>
+        <div class="therapie-img-badge">
+          <div class="badge-num">❤️</div>
+          <div class="badge-label">Therapie mit Herz</div>
         </div>
-        <div class="feature-card reveal reveal-delay-1">
-          <div class="feature-icon">🌾</div>
-          <div class="feature-title">Eigenes Futter</div>
-          <div class="feature-text">Grossteil des Futters stammt von unseren eigenen Feldern.</div>
+      </div>
+      <div class="reveal rd2">
+        <p class="s-label">Pferdegestützte Therapie</p>
+        <h2 class="s-title">Das Pferd als<br><em>Therapeut</em></h2>
+        <div class="divider">
+          <div class="divider-line"></div>
+          <span class="divider-gem">✦</span>
+          <div class="divider-line"></div>
         </div>
-        <div class="feature-card reveal reveal-delay-2">
-          <div class="feature-icon">♻️</div>
-          <div class="feature-title">Nachhaltig</div>
-          <div class="feature-text">Ressourcenschonend wirtschaften für kommende Generationen.</div>
+        <p class="s-body">
+          Pferde haben eine ganz besondere Art, Menschen zu begegnen. Sie bewerten nicht, sie nehmen uns so an, wie wir sind. Mit ihrer Ruhe, ihrer Sensibilität und ihrer ehrlichen Art schaffen sie Vertrauen und schenken Geborgenheit.
+        </p>
+        <p class="s-body" style="margin-top:1rem;">
+          In der pferdegestützten Therapie steht deshalb nicht das Reiten lernen im Vordergrund, sondern der Mensch. Gemeinsam mit dem Pferd entstehen wertvolle Erfahrungen, die stärken, Mut machen und die persönliche Entwicklung fördern. Die Arbeit mit dem Pferd kann helfen, das Selbstvertrauen zu stärken, die Körperwahrnehmung zu verbessern, innere Ruhe zu finden und neue Kraft zu schöpfen.
+        </p>
+        <p class="s-body" style="margin-top:1rem;">
+          Jede Therapieeinheit wird individuell auf die Bedürfnisse des Menschen abgestimmt. Ob beim Putzen, Führen, bei Bodenübungen oder auf dem Pferderücken – das Pferd begleitet den Menschen auf seinem ganz persönlichen Weg. Schritt für Schritt, im eigenen Tempo.
+        </p>
+        <div style="margin-top: 2.5rem; display:flex; gap:1.2rem; flex-wrap:wrap;">
+          <a href="#kontakt" class="btn-primary">Erstgespräch anfragen</a>
+          <a href="#formen" class="btn-outline" style="color:var(--text-dark); border-color:var(--cream-dark);">Angebote ansehen</a>
         </div>
       </div>
     </div>
-    <div class="milch-visual reveal reveal-delay-3">
-      <div class="milch-card-big" style="overflow:hidden;">
-        <img src="milchkuehe-schori.jpg" alt="Kühe auf der Weide" style="width:100%;height:100%;object-fit:cover;opacity:.85;">
+  </div>
+</section>
+
+<!-- THERAPIE FORMEN -->
+<section class="therapie-forms" id="formen">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="s-label">Unsere Angebote</p>
+      <h2 class="s-title">Zwei Wege,<br><em>ein Ziel</em></h2>
+      <p class="s-body">
+        Wir bieten zwei komplementäre Therapieformen an – individuell abgestimmt 
+        auf die Bedürfnisse jedes Menschen.
+      </p>
+    </div>
+    <div class="forms-grid">
+      <div class="form-card reveal rd1">
+        <div class="form-card-icon">🐴</div>
+        <div class="form-card-title">Heilpädagogisches Reiten</div>
+        <div class="form-card-body">
+          Das heilpädagogische Reiten verbindet Pädagogik, Psychologie und 
+          die Kraft des Pferdes. Kinder und Jugendliche erleben Selbstwirksamkeit, 
+          bauen Vertrauen auf und stärken soziale Kompetenzen – spielerisch und nachhaltig.
+        </div>
+        <div class="form-card-tags">
+          <span class="form-tag">Kinder & Jugendliche</span>
+          <span class="form-tag">Entwicklungsförderung</span>
+          <span class="form-tag">Soziale Kompetenzen</span>
+          <span class="form-tag">Selbstvertrauen</span>
+        </div>
+        <div class="form-card-footer">→ Anfrage &amp; Erstgespräch</div>
       </div>
-      <div class="milch-card-small" style="overflow:hidden;">
-        <img src="milchkuehe-schori.jpg" alt="Milchkühe" style="width:100%;height:100%;object-fit:cover;object-position:center 60%;">
+      <div class="form-card reveal rd2">
+        <div class="form-card-icon">💚</div>
+        <div class="form-card-title">Reittherapie</div>
+        <div class="form-card-body">
+          Die Reittherapie nutzt die dreidimensionale Bewegung des Pferdes 
+          gezielt zur Förderung von Körper und Psyche. Besonders wirksam bei 
+          neurologischen, orthopädischen und psychischen Beeinträchtigungen – 
+          für Menschen jeden Alters.
+        </div>
+        <div class="form-card-tags">
+          <span class="form-tag">Alle Altersgruppen</span>
+          <span class="form-tag">Körper & Psyche</span>
+          <span class="form-tag">Neurologisch</span>
+          <span class="form-tag">Psychisch</span>
+        </div>
+        <div class="form-card-footer">→ Anfrage &amp; Erstgespräch</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZIELGRUPPEN -->
+<section class="zielgruppen" id="zielgruppen">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="s-label">Für wen</p>
+      <h2 class="s-title" style="color:var(--cream);">Therapie für<br><em style="color:var(--stone);">alle Menschen</em></h2>
+      <p class="s-body">
+        Unsere Angebote richten sich an alle Altersgruppen – vom Kind bis zum Senior. 
+        Jede Einheit wird individuell geplant und auf die Person abgestimmt.
+      </p>
+    </div>
+    <div class="zg-grid">
+      <div class="zg-card reveal rd1">
+        <div class="zg-icon">🧒</div>
+        <div class="zg-title">Kinder</div>
+        <div class="zg-text">Spielerische Förderung von Motorik, Konzentration und sozialem Verhalten.</div>
+      </div>
+      <div class="zg-card reveal rd2">
+        <div class="zg-icon">🧑</div>
+        <div class="zg-title">Jugendliche</div>
+        <div class="zg-text">Identitätsfindung, Selbstvertrauen und emotionale Stabilität stärken.</div>
+      </div>
+      <div class="zg-card reveal rd3">
+        <div class="zg-icon">👤</div>
+        <div class="zg-title">Erwachsene</div>
+        <div class="zg-text">Stressbewältigung, Körperwahrnehmung und psychische Gesundheit fördern.</div>
+      </div>
+      <div class="zg-card reveal rd4">
+        <div class="zg-icon">♿</div>
+        <div class="zg-title">Menschen mit Behinderung</div>
+        <div class="zg-text">Individuelle Therapie zur Förderung von Selbstständigkeit und Lebensqualität.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANGEBOT & PREISE -->
+<section class="preise" id="preise">
+  <div class="section-inner">
+    <div class="preise-grid">
+      <div class="reveal">
+        <p class="s-label">Angebot & Preise</p>
+        <h2 class="s-title">Transparent &<br><em>fair</em></h2>
+        <div class="divider">
+          <div class="divider-line"></div>
+          <span class="divider-gem">✦</span>
+          <div class="divider-line"></div>
+        </div>
+        <div class="preise-cards">
+          <div class="preis-card reveal rd1">
+            <div>
+              <div class="preis-card-title">Einzeltherapie – Reittherapie</div>
+              <div class="preis-card-desc">Individuelle Einzel-Therapiestunde</div>
+              <div class="preis-card-sub">45 Minuten</div>
+            </div>
+            <div class="preis-right">
+              <div class="preis-amount">CHF 140.–</div>
+              <div class="preis-unit">pro Einheit</div>
+            </div>
+          </div>
+          <div class="preis-card reveal rd2">
+            <div>
+              <div class="preis-card-title">Heilpädagogisches Reiten</div>
+              <div class="preis-card-desc">Ohne Krankenkassenanerkennung</div>
+              <div class="preis-card-sub">45 Minuten</div>
+            </div>
+            <div class="preis-right">
+              <div class="preis-amount">CHF 100.–</div>
+              <div class="preis-unit">pro Einheit</div>
+            </div>
+          </div>
+          <div class="preis-card reveal rd3">
+            <div>
+              <div class="preis-card-title">Heilpädagogisches Reiten</div>
+              <div class="preis-card-desc">Ohne Krankenkassenanerkennung</div>
+              <div class="preis-card-sub">90 Minuten</div>
+            </div>
+            <div class="preis-right">
+              <div class="preis-amount">CHF 160.–</div>
+              <div class="preis-unit">pro Einheit</div>
+            </div>
+          </div>
+        </div>
+        <div class="preise-note reveal rd4">
+          💳 Die Therapie ist direkt nach der Sitzung zu begleichen. Manche Krankenkassen übernehmen über die Zusatzversicherung einen Teil der Kosten – die Abklärung liegt in Ihrer Verantwortung. Sie erhalten einen Rückforderungsbeleg zur Einreichung bei der Versicherung.<br><br>
+          ⏰ Termine, die nicht 24 Stunden vorher abgesagt werden, werden verrechnet.
+        </div>
+      </div>
+      <div class="preise-img reveal rd2">
+        <div class="preise-img-main">
+          <img src="AlMareen.jpeg" alt="Therapiepferd AlMareen auf der Rüttiweid">
+        </div>
       </div>
     </div>
   </div>
@@ -710,91 +939,40 @@
   <div class="section-inner">
     <div class="araber-grid">
       <div class="araber-visual reveal">
-        <div class="araber-main" style="overflow:hidden;">
-          <img src="Arab1.png" alt="Arabische Pferde mit Reiterin" style="width:100%;height:100%;object-fit:cover;">
+        <div class="araber-main">
+          <img src="Azida.jpeg" alt="Azida – Vollblutaraberstute auf der Rüttiweid">
         </div>
         <div class="araber-badge">
           <div class="araber-badge-title">Vollblut Araber</div>
-          <div class="araber-badge-sub">Reinrassige Zucht seit Jahren</div>
+          <div class="araber-badge-sub">Unsere Herzenpferde</div>
         </div>
       </div>
-      <div class="reveal reveal-delay-2">
-        <p class="label">Araberzucht</p>
-        <h2 class="section-title">Das edelste<br><em>Pferd der Welt</em></h2>
+      <div class="reveal rd2">
+        <p class="s-label">Vollblutaraberzucht</p>
+        <h2 class="s-title">Sensibel, intelligent<br><em>& einzigartig</em></h2>
         <div class="divider">
           <div class="divider-line"></div>
-          <span class="divider-leaf">✦</span>
+          <span class="divider-gem">✦</span>
           <div class="divider-line"></div>
         </div>
-        <p class="section-body">
-          Der Arabische Vollblüter ist eine der ältesten und reinsten Pferderassen der Welt. 
-          Auf der Rüttiweid züchten wir mit Leidenschaft und Sachverstand – für Charakter, 
-          Gesundheit und jenes besondere Feuer, das diese Pferde so unvergleichlich macht.
+        <p class="s-body">
+          Aus unserer gemeinsamen Leidenschaft für Pferde entwickelte sich mit den Jahren unsere Vollblutaraberzucht. Für uns sind Vollblutaraber weit mehr als nur eine Pferderasse – sie sind treue Begleiter, sensible Lehrmeister und echte Herzenspferde.
+        </p>
+        <p class="s-body" style="margin-top:1rem;">
+          Vollblutaraber zeichnen sich durch ihre aussergewöhnliche Menschenbezogenheit, ihre Feinfühligkeit, ihre Intelligenz und ihre hohe Sensibilität aus. Sie reagieren aufmerksam auf die Körpersprache und die Emotionen ihres Gegenübers und spiegeln diese auf eine beeindruckende Weise.
+        </p>
+        <p class="s-body" style="margin-top:1rem;">
+          Gerade diese Eigenschaften machen den Vollblutaraber zum wertvollen Partner in der pferdegestützten Therapie. Sie laden dazu ein, im Moment anzukommen, Gefühle wahrzunehmen und eine Verbindung aufzubauen – ganz ohne Worte. Unsere Pferde wachsen in einer naturnahen Umgebung auf und werden mit viel Zeit, Geduld und Respekt ausgebildet.
         </p>
         <div class="breed-tags">
-          <span class="tag">Zucht & Aufzucht</span>
-          <span class="tag">Jungpferde</span>
-          <span class="tag">Deckhengste</span>
-          <span class="tag">Ankauf & Verkauf</span>
-          <span class="tag">Beratung</span>
+          <span class="btag">Zucht & Aufzucht</span>
+          <span class="btag">Jungpferde</span>
+          <span class="btag">Deckhengste</span>
+          <span class="btag">Ankauf & Verkauf</span>
+          <span class="btag">Beratung</span>
         </div>
-        <div style="margin-top: 2.2rem;">
+        <div style="margin-top:2.2rem;">
           <a href="#kontakt" class="btn-primary">Anfrage senden</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- THERAPIE -->
-<section class="therapie" id="therapie">
-  <div class="section-inner">
-    <div class="therapie-wrap">
-      <div class="reveal">
-        <p class="label">Reittherapie</p>
-        <h2 class="section-title">Heilung durch<br><em>Pferdekraft</em></h2>
-        <div class="divider">
-          <div class="divider-line"></div>
-          <span class="divider-leaf">✦</span>
-          <div class="divider-line"></div>
-        </div>
-        <p class="section-body">
-          Das Pferd als Therapeut – sanft, geduldig und ehrlich. 
-          Unsere Reittherapie nutzt die einzigartige Verbindung zwischen Mensch und Pferd 
-          zur Förderung von Körper, Geist und Seele.
-        </p>
-        <div class="therapie-points">
-          <div class="therapie-point reveal reveal-delay-1">
-            <span class="point-icon">🧠</span>
-            <div>
-              <div class="point-title">Psychomotorische Therapie</div>
-              <div class="point-text">Koordination, Gleichgewicht und Körperwahrnehmung gezielt fördern.</div>
-            </div>
-          </div>
-          <div class="therapie-point reveal reveal-delay-2">
-            <span class="point-icon">💚</span>
-            <div>
-              <div class="point-title">Emotionale Stärkung</div>
-              <div class="point-text">Vertrauen aufbauen, Ängste überwinden – mit dem Pferd als ruhiger Begleiter.</div>
-            </div>
-          </div>
-          <div class="therapie-point reveal reveal-delay-3">
-            <span class="point-icon">👨‍👩‍👧</span>
-            <div>
-              <div class="point-title">Für alle Altersgruppen</div>
-              <div class="point-text">Kinder, Jugendliche und Erwachsene – individuell abgestimmte Einheiten.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="therapie-visual reveal reveal-delay-2">
-        <div class="therapie-card-top" style="overflow:hidden;">
-          <img src="Arab2.png" alt="Arabische Pferde" style="width:100%;height:100%;object-fit:cover;">
-        </div>
-        <div class="therapie-card-bot">
-          <div class="therapie-quote">
-            Das Pferd lügt nicht – und genau das macht es zum besten Therapeuten.
-          </div>
         </div>
       </div>
     </div>
@@ -804,30 +982,63 @@
 <!-- GALERIE -->
 <section class="galerie" id="galerie">
   <div class="section-inner">
-    <p class="label reveal">Eindrücke</p>
-    <h2 class="section-title reveal reveal-delay-1">Ein Blick auf die <em>Rüttiweid</em></h2>
-    <p class="galerie-intro reveal reveal-delay-2">
-      Bilder sagen mehr als Worte. Hier finden Sie Impressionen aus unserem Alltag – 
-      von der Weide bis zum Stall, von der Milchkammer bis zum Therapieplatz.
+    <p class="s-label reveal">Eindrücke</p>
+    <h2 class="s-title reveal rd1">Ein Blick auf die <em>Rüttiweid</em></h2>
+    <p class="galerie-intro reveal rd2">
+      Impressionen aus unserem Alltag – von der Therapiestunde bis zur Weide, 
+      von der Araberzucht bis zum Hofgeschehen.
     </p>
-    <div class="gallery-grid reveal reveal-delay-3">
-      <div class="gallery-item gi-1" data-label="Der Hof">
-        <img src="Rütiweid.png" alt="Rütiweid von oben" style="width:100%;height:100%;object-fit:cover;">
+    <div class="gallery-grid reveal rd3">
+      <div class="gi gi-1" data-label="Reittherapie">
+        <img src="Reittherapie_1.jpeg" alt="Reittherapie auf der Rüttiweid">
       </div>
-      <div class="gallery-item gi-2" data-label="Araberzucht">
-        <img src="Arab1.png" alt="Arabische Pferde mit Reiterin" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gi gi-2" data-label="Araberzucht">
+        <img src="Paluschka.jpg" alt="Paluschka – Vollblutaraber">
       </div>
-      <div class="gallery-item gi-3" data-label="Milchwirtschaft">
-        <img src="milchkuehe-schori.jpg" alt="Milchkühe" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gi gi-3" data-label="Stall">
+        <img src="Pferdestall.jpeg" alt="Pferdestall Rüttiweid">
       </div>
-      <div class="gallery-item gi-4" data-label="Pferdezucht">
-        <img src="Arab2.png" alt="Arabische Pferde" style="width:100%;height:100%;object-fit:cover;">
+      <div class="gi gi-4" data-label="Kind & Fohlen">
+        <img src="Kind_mit_Fohlen.png" alt="Kind mit Fohlen">
       </div>
-      <div class="gallery-item gi-5" data-label="Reittherapie">
-        <img src="Arab1.png" alt="Reiten" style="width:100%;height:100%;object-fit:cover;object-position:center 30%;">
+      <div class="gi gi-5" data-label="Azida">
+        <img src="Azida.jpeg" alt="Azida – Vollblutaraberstute" style="object-position:center 30%;">
       </div>
-      <div class="gallery-item gi-6" data-label="Weide">
-        <img src="milchkuehe-schori.jpg" alt="Kühe auf der Weide" style="width:100%;height:100%;object-fit:cover;object-position:right center;">
+      <div class="gi gi-6" data-label="Hofidylle">
+        <img src="Kubayshan.jpg" alt="Kubayshan mit Katze">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOF -->
+<section class="hof" id="hof">
+  <div class="hof-inner">
+    <div class="hof-img reveal">
+      <img src="Pferdestall.jpeg" alt="Pferdestall auf der Rüttiweid">
+    </div>
+    <div class="reveal rd2">
+      <p class="s-label">Der Hof</p>
+      <h2 class="s-title">Die Rüttiweid –<br><em>unser Zuhause</em></h2>
+      <p class="s-body">
+        Die Rüttiweid in Kaltbrunn ist der Boden, auf dem alles wächst. 
+        Neben der Reittherapie und der Araberzucht betreiben wir hier 
+        traditionelle Milchwirtschaft – im Einklang mit der Natur und 
+        dem natürlichen Rhythmus des Landes.
+      </p>
+      <div class="hof-facts">
+        <div>
+          <div class="hof-fact-num">2</div>
+          <div class="hof-fact-label">Generationen</div>
+        </div>
+        <div>
+          <div class="hof-fact-num">35+</div>
+          <div class="hof-fact-label">Hektaren</div>
+        </div>
+        <div>
+          <div class="hof-fact-num">5</div>
+          <div class="hof-fact-label">Arabische Pferde</div>
+        </div>
       </div>
     </div>
   </div>
@@ -838,57 +1049,68 @@
   <div class="section-inner">
     <div class="kontakt-grid">
       <div class="reveal">
-        <p class="label">Anfahrt & Kontakt</p>
-        <h2 class="section-title">Besuchen Sie<br><em>uns</em></h2>
-        <div class="kontakt-info">
-          <div class="info-block">
-            <div class="info-icon">📍</div>
-            <div class="info-label">Adresse</div>
-            <div class="info-text">Rütiweidstrasse 227<br>8722 Kaltbrunn<br>Schweiz</div>
-          </div>
-          <div class="info-block">
-            <div class="info-icon">📞</div>
-            <div class="info-label">Telefon</div>
-            <div class="info-text">+41 00 000 00 00</div>
-          </div>
-          <div class="info-block">
-            <div class="info-icon">✉️</div>
-            <div class="info-label">E-Mail</div>
-            <div class="info-text">info@rüttiweid.ch</div>
-          </div>
+        <p class="s-label">Kontakt & Anfahrt</p>
+        <h2 class="s-title">Erstgespräch<br><em>anfragen</em></h2>
+        <div class="divider">
+          <div class="divider-line"></div>
+          <span class="divider-gem">✦</span>
+          <div class="divider-line"></div>
+        </div>
+        <p class="s-body" style="margin-bottom:2rem;">
+          Der erste Schritt ist ein unverbindliches Gespräch. 
+          Wir nehmen uns Zeit für Sie und Ihre Fragen.
+        </p>
+        <div class="info-block">
+          <div class="info-icon">📍</div>
+          <div class="info-label">Adresse</div>
+          <div class="info-text">Rütiweidstrasse 227<br>8722 Kaltbrunn · Schweiz</div>
+        </div>
+        <div class="info-block">
+          <div class="info-icon">📞</div>
+          <div class="info-label">Telefon</div>
+          <div class="info-text">+41 00 000 00 00</div>
+        </div>
+        <div class="info-block">
+          <div class="info-icon">✉️</div>
+          <div class="info-label">E-Mail</div>
+          <div class="info-text">info@reittherapiemitherz.ch</div>
         </div>
       </div>
-      <div class="kontakt-form reveal reveal-delay-2">
-        <div class="form-title">Nachricht senden</div>
+      <div class="kontakt-form reveal rd2">
+        <div class="form-title">Erstgespräch anfragen</div>
         <div class="form-row">
-          <div class="form-group">
+          <div class="fgroup">
             <label>Vorname</label>
             <input type="text" placeholder="Max">
           </div>
-          <div class="form-group">
+          <div class="fgroup">
             <label>Nachname</label>
             <input type="text" placeholder="Muster">
           </div>
         </div>
-        <div class="form-group">
+        <div class="fgroup">
           <label>E-Mail</label>
           <input type="email" placeholder="max@beispiel.ch">
         </div>
-        <div class="form-group">
+        <div class="fgroup">
+          <label>Telefon</label>
+          <input type="tel" placeholder="+41 00 000 00 00">
+        </div>
+        <div class="fgroup">
           <label>Ihr Anliegen</label>
           <select>
             <option value="">Bitte wählen…</option>
-            <option>Milch & Hofprodukte</option>
-            <option>Araberzucht & Pferde</option>
+            <option>Heilpädagogisches Reiten</option>
             <option>Reittherapie</option>
+            <option>Araberzucht & Pferde</option>
             <option>Allgemeine Anfrage</option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="fgroup">
           <label>Nachricht</label>
-          <textarea placeholder="Schreiben Sie uns…"></textarea>
+          <textarea placeholder="Erzählen Sie uns kurz von Ihrem Anliegen…"></textarea>
         </div>
-        <button class="btn-submit">Nachricht senden →</button>
+        <button class="btn-submit">Anfrage senden →</button>
       </div>
     </div>
   </div>
@@ -896,33 +1118,56 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Rütti<span>weid</span></div>
-  <div class="footer-links">
-    <a href="#">Impressum</a>
-    <a href="#">Datenschutz</a>
-    <a href="#kontakt">Kontakt</a>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      Reittherapie mit Herz
+      <small>auf der Rüttiweid · Kaltbrunn</small>
+    </div>
+    <div class="footer-links">
+      <a href="#">Impressum</a>
+      <a href="#">Datenschutz</a>
+      <a href="#therapie">Therapie</a>
+      <a href="#araber">Araberzucht</a>
+      <a href="#kontakt">Kontakt</a>
+    </div>
   </div>
-  <div class="footer-copy">© 2026 Rüttiweid · Alle Rechte vorbehalten</div>
+  <div class="footer-bottom">
+    <span>© 2026 Reittherapie mit Herz · reittherapiemitherz.ch</span>
+    <span>Alle Rechte vorbehalten</span>
+  </div>
+  <div style="text-align:center; margin-top:2rem; padding-top:1.8rem; border-top:1px solid rgba(246,237,217,.06);">
+    <div style="font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:rgba(246,237,217,.25); margin-bottom:.6rem;">Webdesign</div>
+    <div style="font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:1.4rem; letter-spacing:.05em; line-height:1;">
+      <span style="color:#fff; text-decoration:underline; text-decoration-color:#D0321A; text-underline-offset:3px; text-decoration-thickness:2px;">M</span><span style="color:#D0321A">://</span><span style="color:#fff; text-decoration:underline; text-decoration-color:#D0321A; text-underline-offset:3px; text-decoration-thickness:2px;">S</span>
+    </div>
+    <div style="font-size:.62rem; letter-spacing:.18em; color:rgba(246,237,217,.22); margin-top:.5rem;">2026</div>
+  </div>
 </footer>
 
 <script>
-  // Nav scroll effect
+  // Nav scroll
   const nav = document.getElementById('mainNav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 60);
   });
 
+  // Mobile nav
+  const burger = document.getElementById('navBurger');
+  const mobile = document.getElementById('navMobile');
+  const close  = document.getElementById('navClose');
+  burger.addEventListener('click', () => mobile.classList.add('open'));
+  close.addEventListener('click',  () => mobile.classList.remove('open'));
+  document.querySelectorAll('.nav-m-link').forEach(l =>
+    l.addEventListener('click', () => mobile.classList.remove('open'))
+  );
+
   // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
     });
-  }, { threshold: 0.12 });
-  reveals.forEach(el => observer.observe(el));
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
