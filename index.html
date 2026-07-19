@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reittherapie mit Herz – auf der Rüttiweid</title>
+<title>Reittherapie &amp; Leidenschaft – auf der Rüttiweid</title>
 <style>
 /* ─── LOKALE FONTS (DSGVO-konform, kein Google) ─── */
 @font-face { font-family:'Playfair Display'; font-style:normal; font-weight:400; font-display:swap; src:url('fonts/playfair-display-latin-400-normal.woff2') format('woff2'); }
@@ -376,7 +376,7 @@
   .gallery-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(2, 240px);
+    grid-auto-rows: 340px;
     gap: 10px;
   }
   .gi {
@@ -387,21 +387,18 @@
   .gi:hover { transform: scale(1.02); }
   .gi img { width:100%; height:100%; object-fit:cover; transition: filter .4s; }
   .gi:hover img { filter: brightness(1.1); }
-  .gi::after {
-    content: attr(data-label);
-    position: absolute; bottom: .9rem; left: .9rem;
-    font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
-    color: rgba(255,255,255,.8);
-    background: rgba(0,0,0,.35);
-    padding: .25rem .75rem; border-radius: 20px;
-    backdrop-filter: blur(4px);
-  }
   .gi-1 { grid-column: span 5; }
   .gi-2 { grid-column: span 4; }
   .gi-3 { grid-column: span 3; }
   .gi-4 { grid-column: span 3; }
   .gi-5 { grid-column: span 6; }
   .gi-6 { grid-column: span 3; }
+  .gi-7 { grid-column: span 4; }
+  .gi-8 { grid-column: span 4; }
+  .gi-9 { grid-column: span 4; }
+  .gi-10 { grid-column: span 3; }
+  .gi-11 { grid-column: span 5; }
+  .gi-12 { grid-column: span 4; }
 
   /* ─── HOF (Randnotiz) ─── */
   .hof { background: var(--warm); }
@@ -572,6 +569,7 @@
   }
   .ueber .s-title { color: var(--cream); }
   .ueber .s-label { color: var(--stone); }
+  .ueber .s-body { color: rgba(246,237,217,.85); }
   .ueber .divider-line { background: rgba(200,169,122,.2); }
 
   /* ─── SCROLL REVEAL ─── */
@@ -631,7 +629,7 @@
       grid-template-columns: repeat(2,1fr);
       grid-template-rows: auto;
     }
-    .gi-1,.gi-2,.gi-3,.gi-4,.gi-5,.gi-6 { grid-column: span 1; height: 200px; }
+    .gi-1,.gi-2,.gi-3,.gi-4,.gi-5,.gi-6,.gi-7,.gi-8,.gi-9,.gi-10,.gi-11,.gi-12 { grid-column: span 1; height: 280px; }
     .form-row { grid-template-columns: 1fr; }
     footer { padding: 2.5rem 1.5rem; }
     .footer-inner { flex-direction: column; text-align: center; }
@@ -651,7 +649,7 @@
   <a class="nav-logo" href="#">
     <img src="Reittherapie%20mit%20Herz_Logo.png" alt="Logo Reittherapie mit Herz" style="width:44px;height:44px;object-fit:contain;flex-shrink:0;border-radius:50%;">
     <span class="nav-logo-text">
-      Reittherapie mit Herz
+      Reittherapie &amp; Leidenschaft
       <small>auf der Rüttiweid</small>
     </span>
   </a>
@@ -696,7 +694,7 @@
     <p class="hero-eyebrow">Heilung durch Pferdekraft</p>
     <h1 class="hero-title">
       Reittherapie
-      <em>mit Herz</em>
+      <em>&amp; Leidenschaft</em>
     </h1>
     <p class="hero-location">auf der Rüttiweid · Kaltbrunn</p>
     <div class="hero-tags">
@@ -724,7 +722,7 @@
           <img src="Azida%20und%20ich.png" alt="Franziska mit Azida" style="width:100%;height:100%;object-fit:cover;border-radius:2px;">
         </div>
         <div style="position:absolute; bottom:-1.8rem; right:-1.8rem; width:52%; aspect-ratio:3/4; border-radius:2px; overflow:hidden; border:5px solid var(--green-deep); box-shadow:0 8px 30px rgba(0,0,0,.4);">
-          <img src="Azida%20und%20ich%20Kopie.png" alt="Franziska mit Azida im Stall" style="width:100%;height:100%;object-fit:cover;">
+          <img src="Azida_und_Fr%C3%A4nzi3.jpg" alt="Ausritt mit Azida" style="width:100%;height:100%;object-fit:cover;">
         </div>
       </div>
       <div class="reveal rd2">
@@ -761,7 +759,7 @@
     <div class="therapie-intro-grid">
       <div class="therapie-img-wrap reveal">
         <div class="therapie-img-main">
-          <img src="Kind%20mit%20Fohlen.png" alt="Kind mit Fohlen auf der Rüttiweid">
+          <img src="Reittherapie2.jpg" alt="Therapiestunde auf der Rüttiweid">
         </div>
         <div class="therapie-img-badge">
           <div class="badge-num">❤️</div>
@@ -946,7 +944,7 @@
     <div class="araber-grid">
       <div class="araber-visual reveal">
         <div class="araber-main">
-          <img src="Azida.jpeg" alt="Azida – Vollblutaraberstute auf der Rüttiweid">
+          <img src="Stuhte_mit_Fohlen.jpg" alt="Vollblutaraber-Stute mit Fohlen auf der Rüttiweid">
         </div>
         <div class="araber-badge">
           <div class="araber-badge-title">Vollblut Araber</div>
@@ -995,23 +993,41 @@
       von der Araberzucht bis zum Hofgeschehen.
     </p>
     <div class="gallery-grid reveal rd3">
-      <div class="gi gi-1" data-label="Reittherapie">
+      <div class="gi gi-1">
         <img src="Reittherapie%201.jpeg" alt="Reittherapie auf der Rüttiweid">
       </div>
-      <div class="gi gi-2" data-label="Araberzucht">
-        <img src="Paluschka.jpg" alt="Paluschka – Vollblutaraber">
+      <div class="gi gi-2">
+        <img src="Weidegang.jpg" alt="Drei Araber auf der Weide">
       </div>
-      <div class="gi gi-3" data-label="Mit Azida">
-        <img src="Azida%20und%20ich%20Kopie.png" alt="Franziska mit Azida im Stall">
+      <div class="gi gi-3">
+        <img src="Lunch.jpg" alt="Azida im Stall">
       </div>
-      <div class="gi gi-4" data-label="Kind & Fohlen">
+      <div class="gi gi-4">
         <img src="Kind%20mit%20Fohlen.png" alt="Kind mit Fohlen">
       </div>
-      <div class="gi gi-5" data-label="Mit Azida">
-        <img src="Azida%20und%20ich.png" alt="Azida mit Begleitperson" style="object-position:center top;">
+      <div class="gi gi-5">
+        <img src="Azida%20und%20ich.png" alt="Azida mit Begleitperson" style="object-position:center 20%;">
       </div>
-      <div class="gi gi-6" data-label="Hofidylle">
+      <div class="gi gi-6">
+        <img src="Gl%C3%BCcksnase.jpg" alt="Glücksklee für die Pferdenase">
+      </div>
+      <div class="gi gi-7">
+        <img src="AufderWeide.jpg" alt="Araber beim Grasen" style="object-position:center 40%;">
+      </div>
+      <div class="gi gi-8">
+        <img src="Kubi_Diar.jpg" alt="Kubayshan und Diar in den Blumen">
+      </div>
+      <div class="gi gi-9">
+        <img src="Wasgutes.jpg" alt="Etwas Feines für die Pferde">
+      </div>
+      <div class="gi gi-10">
+        <img src="KindimGang.jpg" alt="Kleiner Helfer im Stall">
+      </div>
+      <div class="gi gi-11">
         <img src="Kubayshan.jpg" alt="Kubayshan mit Katze">
+      </div>
+      <div class="gi gi-12">
+        <img src="Nasenjacke.jpg" alt="Jungpferd Portrait" style="object-position:center 30%;">
       </div>
     </div>
   </div>
@@ -1021,7 +1037,7 @@
 <section class="hof" id="hof">
   <div class="hof-inner">
     <div class="hof-img reveal">
-      <img src="Pferdestall.jpeg" alt="Pferdestall auf der Rüttiweid">
+      <img src="K%C3%BCheAlp.jpg" alt="Milchkühe auf der Weide">
     </div>
     <div class="reveal rd2">
       <p class="s-label">Der Hof</p>
@@ -1079,44 +1095,48 @@
         <div class="info-block">
           <div class="info-icon">✉️</div>
           <div class="info-label">E-Mail</div>
-          <div class="info-text">info@reittherapiemitherz.ch</div>
+          <div class="info-text">info@reittherapieundleidenschaft.ch</div>
         </div>
       </div>
       <div class="kontakt-form reveal rd2">
         <div class="form-title">Erstgespräch anfragen</div>
-        <div class="form-row">
-          <div class="fgroup">
-            <label>Vorname</label>
-            <input type="text" placeholder="Max">
+        <form action="kontakt.php" method="POST">
+          <div class="form-row">
+            <div class="fgroup">
+              <label for="vorname">Vorname *</label>
+              <input type="text" id="vorname" name="vorname" placeholder="Max" required>
+            </div>
+            <div class="fgroup">
+              <label for="nachname">Nachname *</label>
+              <input type="text" id="nachname" name="nachname" placeholder="Muster" required>
+            </div>
           </div>
           <div class="fgroup">
-            <label>Nachname</label>
-            <input type="text" placeholder="Muster">
+            <label for="email">E-Mail *</label>
+            <input type="email" id="email" name="email" placeholder="max@beispiel.ch" required>
           </div>
-        </div>
-        <div class="fgroup">
-          <label>E-Mail</label>
-          <input type="email" placeholder="max@beispiel.ch">
-        </div>
-        <div class="fgroup">
-          <label>Telefon</label>
-          <input type="tel" placeholder="+41 00 000 00 00">
-        </div>
-        <div class="fgroup">
-          <label>Ihr Anliegen</label>
-          <select>
-            <option value="">Bitte wählen…</option>
-            <option>Heilpädagogisches Reiten</option>
-            <option>Reittherapie</option>
-            <option>Araberzucht & Pferde</option>
-            <option>Allgemeine Anfrage</option>
-          </select>
-        </div>
-        <div class="fgroup">
-          <label>Nachricht</label>
-          <textarea placeholder="Erzählen Sie uns kurz von Ihrem Anliegen…"></textarea>
-        </div>
-        <button class="btn-submit">Anfrage senden →</button>
+          <div class="fgroup">
+            <label for="telefon">Telefon</label>
+            <input type="tel" id="telefon" name="telefon" placeholder="+41 00 000 00 00">
+          </div>
+          <div class="fgroup">
+            <label for="anliegen">Ihr Anliegen</label>
+            <select id="anliegen" name="anliegen">
+              <option value="">Bitte wählen…</option>
+              <option>Heilpädagogisches Reiten</option>
+              <option>Reittherapie</option>
+              <option>Araberzucht & Pferde</option>
+              <option>Allgemeine Anfrage</option>
+            </select>
+          </div>
+          <div class="fgroup">
+            <label for="nachricht">Nachricht *</label>
+            <textarea id="nachricht" name="nachricht" placeholder="Erzählen Sie uns kurz von Ihrem Anliegen…" required></textarea>
+          </div>
+          <!-- Honeypot gegen Spam – bleibt unsichtbar -->
+          <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+          <button type="submit" class="btn-submit">Anfrage senden →</button>
+        </form>
       </div>
     </div>
   </div>
@@ -1126,19 +1146,19 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">
-      Reittherapie mit Herz
+      Reittherapie &amp; Leidenschaft
       <small>auf der Rüttiweid · Kaltbrunn</small>
     </div>
     <div class="footer-links">
-      <a href="#">Impressum</a>
-      <a href="#">Datenschutz</a>
+      <a href="impressum.html">Impressum</a>
+      <a href="impressum.html#datenschutz">Datenschutz</a>
       <a href="#therapie">Therapie</a>
       <a href="#araber">Araberzucht</a>
       <a href="#kontakt">Kontakt</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 Reittherapie mit Herz · reittherapiemitherz.ch</span>
+    <span>© 2026 Reittherapie &amp; Leidenschaft · reittherapieundleidenschaft.ch</span>
     <span>Alle Rechte vorbehalten</span>
   </div>
   <div style="text-align:center; margin-top:2rem; padding-top:1.8rem; border-top:1px solid rgba(246,237,217,.06);">
